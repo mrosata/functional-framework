@@ -1,5 +1,5 @@
 {
-  "name": "pure-poker",
+  "name": "js-tutorial-setup",
   "version": "0.0.1",
   "scripts": {
     "wpds": "webpack-dev-server"

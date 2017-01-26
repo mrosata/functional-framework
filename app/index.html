@@ -8,21 +8,29 @@
   <title>pure poker</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <!-- build:js scripts/vendor/modernizr.js -->
+  <script>
+    (function() {
+      if ('registerElement' in document
+        && 'import' in document.createElement('link')
+        && 'content' in document.createElement('template')) {
+        // platform is good!
+      } else {
+        // polyfill the platform!
+        var e = document.createElement('script');
+        e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+        document.body.appendChild(e);
+      }
+    })();
+  </script>
   <script src="./bower_components/moment/moment.js"></script>
-  <!-- endbuild -->
 </head>
 <body>
 
 
 <div id="app"></div>
 
-<!-- build:js scripts/vendor.js -->
-<!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
-<!-- endbower -->
-<!-- endbuild -->
 <script src="bundle.js"></script>
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+
 </body>
 </html>

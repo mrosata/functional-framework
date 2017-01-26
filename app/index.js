@@ -2,6 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app.jsx';
+import RefTrans from './components/ref-trans.jsx';
 import './styles/main.scss';
 
 
