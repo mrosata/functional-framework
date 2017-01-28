@@ -17,12 +17,20 @@ Then add these lines to the top of "index.html". *Taken from webcomponents.org*
     // platform is good!
   } else {
     // polyfill the platform!
-    var e = document.createElement('script');
-    e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+    const e = document.createElement('script');
+    e.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
     document.body.appendChild(e);
   }
 })();
 ```
+
+
+
+Regular Expression to replace the html comments in a page with the JSX comments syntax
+<!--(.*)-->
+{/* $1 */}
+
+
 
 
 
