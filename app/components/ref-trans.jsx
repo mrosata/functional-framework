@@ -2,12 +2,13 @@
 import _ from 'ramda';
 
 const {
-  insert, update, remove, prepend, append,
-        view, set, lens, lensPath, lensProp, assocPath, assocProp, map, compose
+        curry, compose,
+        insert, update, remove, prepend, append,
+        view, set, lens, lensPath, lensProp, assocPath, assocProp, map
       } = _;
 
 const assertion = console.assert.bind(console);
-const log = console.log.bind(console);
+const log       = console.log.bind(console);
 
 
 const state = {
@@ -147,5 +148,14 @@ const state = {
 };
 
 
+const _appendElem = curry(function appendElement(parent, child) {
+  return parent.appendChild(child);
+});
+
+const get         = curry((prop, obj) => typeof obj[prop] === "undefined" ? undefined : obj[prop]);
+
+
+
 export default function refTrans() {
+
 }

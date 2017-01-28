@@ -23,3 +23,65 @@ Then add these lines to the top of "index.html". *Taken from webcomponents.org*
   }
 })();
 ```
+
+
+
+This was my first attempt at solving the DOM issue using jsx (it works)
+```javascript
+
+const root  = get('root');
+const elem  = get('element');
+
+const body         = document.body;
+const appendToBody = _appendElem(body);
+
+const currentState = {
+  name: 'Michael the Man',
+  age:  32
+};
+
+
+root(elemComponent).appendChild( templateFn(currentState) );
+
+appendToBody(elem(elemComponent));
+
+function createElement(tagName, children) {
+  const rootNode = document.createElement(tagName);
+
+  children.forEach(node => {
+    if (typeof node === "string" || typeof node === "number")
+      rootNode.appendChild(document.createTextNode(node));
+    else
+      rootNode.appendChild(dom(node));
+  });
+
+  return rootNode;
+}
+
+function dom(tagName, props, ...children) {
+  if (typeof tagName === "object" && tagName instanceof HTMLElement) {
+    return tagName;
+  }
+  if (typeof tagName === "function") {
+    return tagName(props);
+  }
+
+  return createElement(tagName, children);
+}
+
+
+const InnerTemplate = ({state: {age}}) =>  <p>I am {age} years old!</p>;
+
+
+function templateFn(state) {
+  return (
+    <div>
+      <h1>Hello there {state.name} How are you</h1>
+      <p>How is <em>work</em> going?</p>
+      <br/>
+      <InnerTemplate state={state}/>
+    </div>
+  );
+}
+
+```

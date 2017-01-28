@@ -1,11 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom'
-
+import dom from '../index.js';
 function renderItem(item, index) {
   return <li key={index}>{item}</li>;
 }
 
-const AppComponent = ({state: {items=[], name}}) => {
+const AppComponent = ({state: {items = [], name}}) => {
 
   return (
     <div className="demo-video">

@@ -36,8 +36,13 @@ const config = {
         exclude: /(node_modules|bower_components)/,
         loader:  'babel-loader',
         query:   {
-          presets: ['es2015', 'react'],
-          plugins: ['transform-runtime']
+          presets: ['es2015'],
+          plugins: [
+            "transform-runtime",
+            ["transform-react-jsx", {
+              "pragma": "dom" // default pragma is React.createElement
+            }]
+          ]
         }
       }
     ]
