@@ -2,23 +2,24 @@ import h from 'virtual-dom/h';
 import patch from 'virtual-dom/patch';
 import diff from 'virtual-dom/diff';
 import createElement from 'virtual-dom/create-element';
+import {compose} from 'ramda';
 
-let rootElem;
 
-export function renderDOM(initialTemplate, rootElement) {
-  return state => {
-    return renderApp(initialTemplate(state), rootElement);
+export function renderDOM(initialTemplate, root, _state = {}) {
+  // In order to be able to do the dom diffing, we need to maintain
+  // references to the currentTree (for comparision) and the rootNode
+  let currentTree = initialTemplate(_state);
+  let rootNode = createElement(currentTree);
+
+  root.appendChild(rootNode);
+
+  function renderApp(domTree) {
+    const updatedDom = diff(currentTree, domTree);
+    patch(rootNode, updatedDom);
+    currentTree = domTree;
   }
-}
 
-export function renderApp(domTree, root) {
-  if (!rootElem) {
-    rootElem = createElement(domTree);
-    root.appendChild(rootElem);
-    return;
-  }
-  const updatedDom = diff(rootElem, domTree);
-  patch(rootElem, updatedDom);
+  return compose(renderApp, initialTemplate);
 }
 
 
