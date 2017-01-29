@@ -5,11 +5,21 @@ import createElement from 'virtual-dom/create-element';
 import {compose} from 'ramda';
 
 
-export function renderDOM(initialTemplate, root, _state = {}) {
+/**
+ * The first time a root tree is rendered it is handled with renderDOM.
+ * This function will return a function that can be used to subsequently
+ * update the DOM when state changes occur.
+ *
+ * @param treeBuilder {Function} probably JSX or Virtual-Dom function
+ * @param root        {HTMLElement} parent node to insert template
+ * @param _state      {Object} optional initial state
+ * @returns {*}
+ */
+export function renderDOM(treeBuilder, root, _state = {}) {
   // In order to be able to do the dom diffing, we need to maintain
   // references to the currentTree (for comparision) and the rootNode
-  let currentTree = initialTemplate(_state);
-  let rootNode = createElement(currentTree);
+  let currentTree = treeBuilder(_state);
+  const rootNode = createElement(currentTree);
 
   root.appendChild(rootNode);
 
@@ -19,7 +29,7 @@ export function renderDOM(initialTemplate, root, _state = {}) {
     currentTree = domTree;
   }
 
-  return compose(renderApp, initialTemplate);
+  return compose(renderApp, treeBuilder);
 }
 
 
