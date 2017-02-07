@@ -1,3 +1,4 @@
+"use strict"
 import Footer from './Footer';
 import dom from '../utils/dom';
 
@@ -13,8 +14,8 @@ export default (state) => {
         <div className="col-md-8">
 
           <h1 className="page-header">
-            Page Heading
-            <small>Secondary Text</small>
+            Functional Programming
+            <small>Michael Rosata</small>
           </h1>
 
           {/*  First Blog Post  */}
