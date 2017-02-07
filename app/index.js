@@ -21,7 +21,7 @@ const {subscribe, dispatch, getState} = store;
 const updateView = renderDOM(
   (state) => {
     return (
-      <div>
+      <div class="container">
         <h3> balance: {state.balance}</h3>
         <span className="btn btn-success" onclick={() => dispatch({type: 'DEPOSIT', value: 100})}>DEPOSIT</span>
         <App state={state}/>

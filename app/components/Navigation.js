@@ -4,14 +4,14 @@ export default (state) => {
 
   return (
     <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      {/*  Navigation  */}
+      {/*  Nav Menu  */}
       <div className="container">
-        {/*  Brand and toggle get grouped for better mobile display  */}
+
         <div className="navbar-header">
           <button type="button" className="navbar-toggle" data-toggle="collapse"
                   data-target="#bs-example-navbar-collapse-1">
 
-            <span className="sr-only">Toggle navigation</span>
+            <span className="sr-only">Toggle Nav Menu</span>
             <span className="icon-bar">&nbsp;</span>
             <span className="icon-bar">&nbsp;</span>
             <span className="icon-bar">&nbsp;</span>
@@ -22,13 +22,13 @@ export default (state) => {
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
             <li>
-              <a href="#">About</a>
+              <a href="#">BootStrap</a>
             </li>
             <li>
-              <a href="#">Services</a>
+              <a href="#">Firebase</a>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <a href="#">We-Dux</a>
             </li>
           </ul>
         </div>
