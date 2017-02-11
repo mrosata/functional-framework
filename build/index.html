@@ -10,6 +10,16 @@
   <title>Functional JavaScript App</title>
   <meta name="description" content="A small JavaScript App built using Functional Programming
   and influenced heavily by the React framework and Redux.">
+
+  <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+
+  <script src="bower_components/jquery/dist/jquery.js" ></script>
+  <script src="bundle.js" async></script>
+  <script src="bower_components/moment/moment.js" ></script>
+  <script src='bower_components/fullcalendar/dist/fullcalendar.js'></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js" ></script>
+
   <script>
     (function() {
       if ('registerElement' in document
@@ -24,13 +34,9 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <script src="bower_components/jquery/dist/jquery.js" defer></script>
-  <script src="fullcalendar/dist/fullcalendar.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js" defer></script>
 </head>
 <body>
 <section id="app"></section>
-<script src="bundle.js" async></script>
+
 </body>
 </html>

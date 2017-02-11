@@ -3,6 +3,7 @@ import Page from './Page';
 import Navigation from './Navigation';
 import dom from '../utils/dom';
 import l from '../utils/logger'
+import Calendar from './Calendar'
 
 /**
  * The main component of the App, containing the main template elements.
@@ -15,7 +16,8 @@ const AppComponent = ({state}) => {
     <div className="container">
       {/*  Navigation  */}
       <Navigation/>
-
+      {/*  Calendar  */}
+      <Calendar/>
       {/*  Page and Footer  */}
       <Page/>
     </div>
