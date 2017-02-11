@@ -1,3 +1,4 @@
+"use strict"
 import dom from '../utils/dom';
 
 export default (state) => {

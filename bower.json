@@ -17,7 +17,6 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "modernizr": "^3.3.1",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.23"
+    "jquery": "^3.1.1"
   }
 }

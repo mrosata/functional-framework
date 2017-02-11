@@ -14,7 +14,7 @@ export default (state) => {
         <div className="col-md-8">
 
           <h1 className="page-header">
-            Functional Programming
+            Fake Redux, Babel JSX -> JS
             <small>Michael Rosata</small>
           </h1>
 

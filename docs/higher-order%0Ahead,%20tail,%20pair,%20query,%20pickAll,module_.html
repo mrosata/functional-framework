@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: higher-order
+head, tail, pair, query, pickAll,</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: higher-order
+head, tail, pair, query, pickAll,</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="higher-order
+head, tail, pair, query, pickAll,module:.head"><span class="type-signature">(constant) </span>higher-order
+head, tail, pair, query, pickAll,module:.head<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return the first element from an array
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="higher-order
+head, tail, pair, query, pickAll,module:.pair"><span class="type-signature">(constant) </span>higher-order
+head, tail, pair, query, pickAll,module:.pair<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Create an immutable pair from 2 elements
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="higher-order
+head, tail, pair, query, pickAll,module:.pickAll"><span class="type-signature">(constant) </span>higher-order
+head, tail, pair, query, pickAll,module:.pickAll<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Get selected properties from an object
+
+can be distilled down to:
+reduce((result, key) => result[key] = record[key], {}, keys)
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="higher-order
+head, tail, pair, query, pickAll,module:.query"><span class="type-signature">(constant) </span>higher-order
+head, tail, pair, query, pickAll,module:.query<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Query selected keys from a set of records
+
+can be distilled down to:
+(keys, records) => records.map(record => pickAll(keys))
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="higher-order
+head, tail, pair, query, pickAll,module:.tail"><span class="type-signature">(constant) </span>higher-order
+head, tail, pair, query, pickAll,module:.tail<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Return the last elements of array unless the array has length of 1
+this will be every item except the head. (I should look up and
+check that is the default tail behaviour of single element array
+for most tail implementations)
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples_higher-order.js.html">examples/higher-order.js</a>, <a href="examples_higher-order.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="higher-order%250Ahead,%2520tail,%2520pair,%2520query,%2520pickAll,module_.html">higher-order
+head, tail, pair, query, pickAll,</a></li></ul><h3>Global</h3><ul><li><a href="global.html#actionFactory">actionFactory</a></li><li><a href="global.html#AppComponent">AppComponent</a></li><li><a href="global.html#basicMap">basicMap</a></li><li><a href="global.html#createStore">createStore</a></li><li><a href="global.html#mainReducer">mainReducer</a></li><li><a href="global.html#renderDOM">renderDOM</a></li><li><a href="global.html#updateView">updateView</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Feb 10 2017 22:27:55 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
