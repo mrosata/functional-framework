@@ -10,7 +10,7 @@ For docs `yarn doc` or `npm run doc` (they generate into docs folder, but you ca
 
 
 Added in a firebaseApp module that will setup firebase
-```
+```javascript
 // Keep in mind the relative path
 import firebaseApp from './utils/firebase-app'
 
