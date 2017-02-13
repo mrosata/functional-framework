@@ -1,9 +1,9 @@
 "use strict"
 
 export const defaultState = {
-  balance: 0
+  balance: 0,
+  calendarEvents: []
 }
-
 
 /**
  * When an action is dispatched, we handle it here. It is checked and then
@@ -23,6 +23,9 @@ const mainReducer = (state = defaultState, action) => {
 
     case 'WITHDRAW':
       return Object.assign({}, state, {balance: state.balance - action.value})
+
+    case 'SET_EVENTS':
+      return Object.assign({}, state, {calendarEvents: [].concat(action.value)})
 
     case 'INITIAL':
       return action.value
