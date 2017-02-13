@@ -3,6 +3,8 @@ import {database} from './firebase-app'
 
 /**
  * This is a placeholder for now. It can save events to firebase,
+ * We are going to use Google Calendar Eventually, but we will need
+ * to push pre-approved events to Firebase still.
  * however we'll likely want to add different properties to it in
  * the future. For now it's useful for mocking up the calendar.
  */
