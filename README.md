@@ -8,7 +8,6 @@ Finally, `yarn serve` or `npm run serve` to live serve your work
 
 For docs `yarn doc` or `npm run doc` (they generate into docs folder, but you can also just read them inline as you code).
 
-<<<<<<< HEAD
 
 Added in a firebaseApp module that will setup firebase
 ```javascript
@@ -20,5 +19,5 @@ firebaseApp.database.ref('events')
 
 // There is also an alias firebase.auth() === firebaseApp.auth but we don't need that atm
 ```
-		￼  
+
 If you see module "firebase" not found, try `npm install` again. Anytime switching branches it's a good idea to re-install dependencies it seems.
