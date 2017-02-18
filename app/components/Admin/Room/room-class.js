@@ -21,6 +21,27 @@ export default class Room {
     }
 
 
+    static fromFirebaseSnapshot(snapshot) {
+
+        if (!snapshot || typeof snapshot.val !== "function") {
+            throw "Room.fromFirebaseSnapshot expects child of 'rooms' snapshot"
+        }
+
+        // Create the instance of Event using Firebase Snapshot
+        let {number, name, description, active} = snapshot.val()
+
+        const evt = new Room(number, name, description, active)
+
+        //console.log(snapshot.getKey());
+
+        // Set the ID (//TODO: this might be better in constructor now that data is live)
+        evt.key = snapshot.getKey();
+
+        return evt
+    }
+
+
+
     /**
      * Check that an object matches the signature of an room.
      * (useful for: checking type before storing to firebase)
