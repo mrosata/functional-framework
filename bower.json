@@ -19,6 +19,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     "moment": "^2.17.1",
-    "fullcalendar": "^3.2.0"
+    "fullcalendar": "^3.2.0",
+    "font-awesome": "^4.7.0"
   }
 }

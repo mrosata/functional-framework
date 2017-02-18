@@ -1,5 +1,6 @@
 "use strict"
 import {combineReducers} from './index'
+import exampleReducers from './reducers/example-reducer'
 
 export const defaultState = {
   balance: 0,
@@ -32,19 +33,12 @@ const mainReducer = (state = defaultState, action) => {
   }
 }
 
-const balanceReducers = (state = defaultState, action) => {
 
-  switch (action.type) {
-
-    case 'DEPOSIT':
-      return Object.assign({}, state, {balance: state.balance + action.value})
-
-    case 'WITHDRAW':
-      return Object.assign({}, state, {balance: state.balance - action.value})
-
-    default:
-      return state
-  }
-}
-
-export default combineReducers(mainReducer, balanceReducers/*, ... reducerN, reducerN+1 ... */);
+/**
+ * Each argument should be a reducer function like the one above.
+ * combineReducers is variadic up to 255 args.
+ * That's a lot of reductions!
+ *
+ * Import your custom reducer at the top of file and add it as an argument here
+ */
+export default combineReducers(mainReducer, exampleReducers/*, ... reducerN, reducerN+1 ... */);

@@ -96,77 +96,18 @@
 
         
             
-<h4 class="name" id="actionFactory"><span class="type-signature">(constant) </span>actionFactory<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Create actions (helper)
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data-store_actions.js.html">data-store/actions.js</a>, <a href="data-store_actions.js.html#line8">line 8</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id="updateView"><span class="type-signature">(constant) </span>updateView<span class="type-signature"> :function</span></h4>
 
 
 
 
 <div class="description">
-    updateView takes updated state objects and then renders
+    MAIN ENTRY POINT FOR ENTIRE APPLICATION
+
+updateView takes updated state objects and then renders
 them into the DOM. renderDOM uses virtual-dom, so only
 elements that need to be re-render will actually be rendered.
+--- So `updateView` is just a function we pass an {} holding all app state
 </div>
 
 
@@ -214,7 +155,7 @@ elements that need to be re-render will actually be rendered.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line18">line 18</a>
+        <a href="index.jsx.html">index.jsx</a>, <a href="index.jsx.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -235,6 +176,88 @@ elements that need to be re-render will actually be rendered.
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="alertWhenCheckboxChanges"><span class="type-signature"></span>alertWhenCheckboxChanges<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Example onchange event on the checkbox in jsx.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_Example.jsx.html">components/Example.jsx</a>, <a href="components_Example.jsx.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
             
@@ -341,7 +364,7 @@ elements that need to be re-render will actually be rendered.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="components_App.jsx.html">components/App.jsx</a>, <a href="components_App.jsx.html#line12">line 12</a>
+        <a href="components_App.jsx.html">components/App.jsx</a>, <a href="components_App.jsx.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -364,183 +387,6 @@ elements that need to be re-render will actually be rendered.
 
 
 
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="basicMap"><span class="type-signature"></span>basicMap<span class="signature">(predicate, list)</span><span class="type-signature"> &rarr; {array}</span></h4>
-
-    
-
-
-
-<div class="description">
-    Create a new Array with the results from a `predicate`
-function performed individually over each item in `list`
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>predicate</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Function to apply</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>list</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">array</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Array with values to map over</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="examples_map.js.html">examples/map.js</a>, <a href="examples_map.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Array with mapped results
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">array</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -672,7 +518,7 @@ function performed individually over each item in `list`
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data-store_index.js.html">data-store/index.js</a>, <a href="data-store_index.js.html#line25">line 25</a>
+        <a href="data-store_index.js.html">data-store/index.js</a>, <a href="data-store_index.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -721,6 +567,467 @@ function performed individually over each item in `list`
 
     
 
+    <h4 class="name" id="depositMoney"><span class="type-signature"></span>depositMoney<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Call this with the CSS Selector for an input, it returns a function that has
+that selector bound to it, grabs the value from the selector and dispatches action.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_Example.jsx.html">components/Example.jsx</a>, <a href="components_Example.jsx.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="depositMoneyAction"><span class="type-signature"></span>depositMoneyAction<span class="signature">(state, action)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Action to handle depositing Monopoly Money into the bank
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data-store_reducers_example-reducer.js.html">data-store/reducers/example-reducer.js</a>, <a href="data-store_reducers_example-reducer.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="ExampleComponent"><span class="type-signature"></span>ExampleComponent<span class="signature">(state)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Pass each component that is imported from another file the {state} object
+We can update the component jsx using the current state and
+dispatch actions up to "redux-ish" to make changes.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">contains the state of app passed in from index.js</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="components_Example.jsx.html">components/Example.jsx</a>, <a href="components_Example.jsx.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="hasEventInfo"><span class="type-signature"></span>hasEventInfo<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Check that an object matches the signature of an event.
+(useful for: checking type before storing to firebase)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_democracy-event-class.js.html">utils/democracy-event-class.js</a>, <a href="utils_democracy-event-class.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="mainReducer"><span class="type-signature"></span>mainReducer<span class="signature">(state<span class="signature-attributes">opt</span>, action)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
@@ -731,7 +1038,7 @@ function performed individually over each item in `list`
     When an action is dispatched, we handle it here. It is checked and then
 reduced and then the state is finally updated. Don't mutate the state,
 if the state doesn't change then just return the state passed in. This
-reducer is setup as an example. //TODO: Create combineReducers function
+reducer is setup as an example.
 </div>
 
 
@@ -816,7 +1123,7 @@ reducer is setup as an example. //TODO: Create combineReducers function
             <td class="type">
             
                 
-<span class="param-type">Action</span>
+<span class="param-type">Object</span>
 
 
             
@@ -879,7 +1186,7 @@ reducer is setup as an example. //TODO: Create combineReducers function
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data-store_reducers.js.html">data-store/reducers.js</a>, <a href="data-store_reducers.js.html#line18">line 18</a>
+        <a href="data-store_reducers.js.html">data-store/reducers.js</a>, <a href="data-store_reducers.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -909,6 +1216,106 @@ reducer is setup as an example. //TODO: Create combineReducers function
     - The next state
 </div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="ref"><span class="type-signature"></span>ref<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Firebase Reference to Events
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_democracy-event-class.js.html">utils/democracy-event-class.js</a>, <a href="utils_democracy-event-class.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
 
 
 <dl>
@@ -1173,6 +1580,317 @@ update the DOM when state changes occur.
 
 
         
+            
+
+    
+
+    <h4 class="name" id="saveToFirebase"><span class="type-signature"></span>saveToFirebase<span class="signature">(demoEvent)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Save Event Into Firebase
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>demoEvent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DemoEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_democracy-event-class.js.html">utils/democracy-event-class.js</a>, <a href="utils_democracy-event-class.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="withdrawMoneyAction"><span class="type-signature"></span>withdrawMoneyAction<span class="signature">(state, action)</span><span class="type-signature"> &rarr; {*}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Action to handle withdrawals
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="data-store_reducers_example-reducer.js.html">data-store/reducers/example-reducer.js</a>, <a href="data-store_reducers_example-reducer.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
     
 
     
@@ -1330,7 +2048,7 @@ update the DOM when state changes occur.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="data-store_index.js.html">data-store/index.js</a>, <a href="data-store_index.js.html#line10">line 10</a>
+        <a href="data-store_index.js.html">data-store/index.js</a>, <a href="data-store_index.js.html#line11">line 11</a>
     </li></ul></dd>
     
 
@@ -1360,14 +2078,13 @@ update the DOM when state changes occur.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="higher-order%250Ahead,%2520tail,%2520pair,%2520query,%2520pickAll,module_.html">higher-order
-head, tail, pair, query, pickAll,</a></li></ul><h3>Global</h3><ul><li><a href="global.html#actionFactory">actionFactory</a></li><li><a href="global.html#AppComponent">AppComponent</a></li><li><a href="global.html#basicMap">basicMap</a></li><li><a href="global.html#createStore">createStore</a></li><li><a href="global.html#mainReducer">mainReducer</a></li><li><a href="global.html#renderDOM">renderDOM</a></li><li><a href="global.html#updateView">updateView</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="FirebaseInstance.html">FirebaseInstance</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#alertWhenCheckboxChanges">alertWhenCheckboxChanges</a></li><li><a href="global.html#AppComponent">AppComponent</a></li><li><a href="global.html#createStore">createStore</a></li><li><a href="global.html#depositMoney">depositMoney</a></li><li><a href="global.html#depositMoneyAction">depositMoneyAction</a></li><li><a href="global.html#ExampleComponent">ExampleComponent</a></li><li><a href="global.html#hasEventInfo">hasEventInfo</a></li><li><a href="global.html#mainReducer">mainReducer</a></li><li><a href="global.html#ref">ref</a></li><li><a href="global.html#renderDOM">renderDOM</a></li><li><a href="global.html#saveToFirebase">saveToFirebase</a></li><li><a href="global.html#updateView">updateView</a></li><li><a href="global.html#withdrawMoneyAction">withdrawMoneyAction</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Fri Feb 10 2017 22:27:55 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sat Feb 18 2017 17:28:31 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

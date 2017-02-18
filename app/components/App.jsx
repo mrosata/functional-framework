@@ -25,8 +25,16 @@ const AppComponent = ({state}) => {
         <Calendar state={state} dispatch={dispatch} />
       </div>
 
+
+      <div className="row">
+        <div className="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+          <Example state={state} dispatch={dispatch} />
+        </div>
+      </div>
+
+
       {/*  Page and Footer  */}
-      <Page/>
+      <Page state={state} dispatch={dispatch}/>
 
 
       {/*  Example DOM
