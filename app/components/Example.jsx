@@ -1,8 +1,8 @@
 "use strict"
 import dom from '../utils/dom'
 import {log} from '../utils/logger'
-import Calendar from './Calendar'
 
+import {dispatch, dispatchAsync} from '../index'
 
 
 /**
@@ -15,14 +15,12 @@ function alertWhenCheckboxChanges(){
 
 /**
  * Pass each component that is imported from another file the {state} object
- * as well as the {dispatch} function so that we can A. update the components
- * jsx using the current state and dispatch actions up to "redux-ish" to make
- * changes.
+ * We can update the component jsx using the current state and
+ * dispatch actions up to "redux-ish" to make changes.
  *
  * @param {object} state - contains the state of app passed in from index.js
- * @param {object} dispatch - function to call with ({action: STRING, value: MIXED})
  */
-const ExampleComponent = ({state: {balance}, dispatch}) => {
+const ExampleComponent = ({state: {balance}}) => {
   // Using destructuring in the params above we don't have to do
   // const balance = state.balance;
   // uncomment line below, it's already set

@@ -13,7 +13,7 @@ database.ref('/events').on('value', (snapshot) => {
 })
 
 // Setup Our Store. (also only needs to be done once)
-const {subscribe, dispatch, getState} = createStore(reducers, defaultState)
+const {subscribe, dispatch, dispatchAsync, getState} = createStore(reducers, defaultState)
 
 
 /**
@@ -26,12 +26,7 @@ const {subscribe, dispatch, getState} = createStore(reducers, defaultState)
  * @type {function}
  */
 const updateView = renderDOM(
-  (state) => {
-    return (
-      <div class="container">
-        <App state={state} dispatch={dispatch} />
-      </div>
-    )}, document.getElementById('app'), getState()
+  (state) => <App state={state} dispatch={dispatch} />, document.getElementById('app'), getState()
 )
 
 
@@ -50,3 +45,21 @@ const unsubscribe = subscribe(
     updateView(updatedState)
     return void 0
 })
+
+
+export {dispatch, dispatchAsync, getState}
+
+
+/*
+
+// Uncomment this if you would like to see how the dispatchAsync works.
+// There are no reducers that handle it, so it won't have an effect on
+// the state of app... but you can see it dispatch action in web console.
+
+dispatchAsync('STEEL', new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(`This should be value of 'STEEL_RESOLVE'`)
+  }, 1000)
+}))
+
+*/
