@@ -7,22 +7,30 @@ const tempRoom = new Room(456, 'Room1', '4th floor');
 function addTestRoom() {
     console.log('addTestRoom');
 
-    return new Promise((resolve, reject) => {
-        //let room = new Room(115, 'Large Meeting Room', '1st floor', true);
-        console.log(tempRoom);
+    //validate
+    if (!Room.hasRoomInfo(tempRoom)) {
+        console.log('missing room info');
+        throw "Before Saving Room To Firebase Ensure It Has Proper Info"
+    }
 
-        //validate
-        if (!Room.hasRoomInfo(tempRoom)) {
-            console.log('missing room info');
-            throw "Before Saving Room To Firebase Ensure It Has Proper Info"
-        }
+    Room.save(tempRoom);
 
-        //save to firebase
-        Room.saveToFirebase(tempRoom);
+    // return new Promise((resolve, reject) => {
+    //     //let room = new Room(115, 'Large Meeting Room', '1st floor', true);
+    //     console.log(tempRoom);
 
-        //need to dispatch?
+    //     //validate
+    //     if (!Room.hasRoomInfo(tempRoom)) {
+    //         console.log('missing room info');
+    //         throw "Before Saving Room To Firebase Ensure It Has Proper Info"
+    //     }
 
-    })
+    //     //save to firebase
+    //     //Room.saveToFirebase(tempRoom);
+
+    //     //need to dispatch?
+
+    // })
 }
 
 
@@ -52,7 +60,7 @@ export default () => {
                     <div className="form-group row">
                         <label htmlFor="number" className="col-2 col-form-label">Room #</label>
                         <div className="col-10">
-                            <input className="form-control" type="text" value={tempRoom.number} placeholder="Room Number" onchange={handleNameChange} id="number" name="number"></input>
+                            <input className="form-control" type="text" required="true" value={tempRoom.number} placeholder="Room Number" onchange={handleNameChange} id="number" name="number"></input>
                         </div>
                     </div>
                     <div className="form-group row">

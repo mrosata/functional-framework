@@ -5,6 +5,8 @@ import Page from './Page'
 import Example from './Example'
 import Calendar from './Calendar'
 import Navigation from './Navigation'
+import Room from './Admin/Room/Room'
+
 import {dispatch, dispatchAsync} from '../index'
 
 /**
@@ -36,6 +38,7 @@ const AppComponent = ({state}) => {
       {/*  Page and Footer  */}
       <Page state={state} dispatch={dispatch}/>
 
+      <Room state={state} dispatch={dispatch} />
 
       {/*  Example DOM
       <div className="row">
