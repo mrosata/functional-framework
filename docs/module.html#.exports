@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/App.jsx</title>
+    <title>JSDoc: Class: exports</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,68 +17,133 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/App.jsx</h1>
+    <h1 class="page-title">Class: exports</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>"use strict"
-import dom from '../utils/dom'
+        <h2>exports</h2>
+        
+            <div class="class-description">This is a placeholder for now. It can save events to firebase,
+We are going to use Google Calendar Eventually, but we will need
+to push pre-approved events to Firebase still.
+however we'll likely want to add different properties to it in
+the future. For now it's useful for mocking up the calendar.</div>
+        
+    
+</header>
 
-import Page from './Page'
-import Example from './Example'
-import Calendar from './Calendar'
-import Navigation from './Navigation'
-import {dispatch, dispatchAsync} from '../index'
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * The main component of the App, containing the main template elements.
- *
- * @param {object} state - contains the state of app passed in from index.js
- */
-const AppComponent = ({state}) => {
+    
+    <h2>Constructor</h2>
+    
 
-  return (
-    &lt;div className="container">
+    <h4 class="name" id=".exports"><span class="type-signature"></span>new exports<span class="signature">()</span><span class="type-signature"></span></h4>
 
-      {/*  Navigation  */}
-      &lt;Navigation/>
-
-      {/*  Calendar  */}
-      &lt;div className="row">
-        &lt;Calendar state={state} dispatch={dispatch} />
-      &lt;/div>
+    
 
 
-      &lt;div className="row">
-        &lt;div className="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
-          &lt;Example state={state} dispatch={dispatch} />
-        &lt;/div>
-      &lt;/div>
 
 
-      {/*  Page and Footer  */}
-      &lt;Page state={state} dispatch={dispatch}/>
 
 
-      {/*  Example DOM
-      &lt;div className="row">
-        &lt;Example state={state} dispatch={dispatch} />
-      &lt;/div>
-      */}
-    &lt;/div>
-  );
-};
 
 
-export default AppComponent
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_democracy-event-class.js.html">utils/democracy-event-class.js</a>, <a href="utils_democracy-event-class.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

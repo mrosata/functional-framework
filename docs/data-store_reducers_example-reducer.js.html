@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/App.jsx</title>
+    <title>JSDoc: Source: data-store/reducers/example-reducer.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/App.jsx</h1>
+    <h1 class="page-title">Source: data-store/reducers/example-reducer.js</h1>
 
     
 
@@ -26,56 +26,61 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict"
-import dom from '../utils/dom'
+            <pre class="prettyprint source linenums"><code>/**
+ * Action to handle depositing Monopoly Money into the bank
+ * @param state
+ * @param action
+ * @returns {*}
+ */
+function depositMoneyAction(state, action) {
+  const oldBalance = state.balance || 0;
+  const newBalance = oldBalance + action.value;
 
-import Page from './Page'
-import Example from './Example'
-import Calendar from './Calendar'
-import Navigation from './Navigation'
-import {dispatch, dispatchAsync} from '../index'
+  // Clones the state object and then overwrites state.balance
+  return Object.assign({}, state, {balance: newBalance})
+}
+
 
 /**
- * The main component of the App, containing the main template elements.
- *
- * @param {object} state - contains the state of app passed in from index.js
+ * Action to handle withdrawals
+ * @param state
+ * @param action
+ * @returns {*}
  */
-const AppComponent = ({state}) => {
+function withdrawMoneyAction(state, action) {
+  const oldBalance = state.balance || 0;
+  const newBalance = oldBalance - action.value;
 
-  return (
-    &lt;div className="container">
-
-      {/*  Navigation  */}
-      &lt;Navigation/>
-
-      {/*  Calendar  */}
-      &lt;div className="row">
-        &lt;Calendar state={state} dispatch={dispatch} />
-      &lt;/div>
+  // Object assign is the same as doing
+  return Object.assign({}, state, {balance: newBalance})
+}
 
 
-      &lt;div className="row">
-        &lt;div className="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
-          &lt;Example state={state} dispatch={dispatch} />
-        &lt;/div>
-      &lt;/div>
+/**
+ * This function is called by the "redux-like" store after one of our components
+ * calls the @function dispatch with an @type Action action. It will update the
+ * state of the app and trigger all JSX components to create updated virtual nodes.
+ * (so if there is a change in your component afterwards, it will render automagically)
+ * .
+ * @param state      - the current app state
+ * @param action     - an action {type: string, action: mixed}
+ * @returns {object} - the new app state (or the old state if no change)
+ */
+export default (state = {}, action) => {
 
+  switch (action.type) {
 
-      {/*  Page and Footer  */}
-      &lt;Page state={state} dispatch={dispatch}/>
+    case 'DEPOSIT':
+      return depositMoneyAction(state, action)
 
+    case 'WITHDRAW':
+      return withdrawMoneyAction(state, action)
 
-      {/*  Example DOM
-      &lt;div className="row">
-        &lt;Example state={state} dispatch={dispatch} />
-      &lt;/div>
-      */}
-    &lt;/div>
-  );
-};
-
-
-export default AppComponent
+    default:
+      // @desc Always have a default to return state object
+      return state
+  }
+}
 </code></pre>
         </article>
     </section>

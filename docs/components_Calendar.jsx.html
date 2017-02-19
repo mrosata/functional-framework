@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/App.jsx</title>
+    <title>JSDoc: Source: components/Calendar.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/App.jsx</h1>
+    <h1 class="page-title">Source: components/Calendar.jsx</h1>
 
     
 
@@ -28,54 +28,34 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict"
 import dom from '../utils/dom'
+import {log} from '../utils/logger'
 
-import Page from './Page'
-import Example from './Example'
-import Calendar from './Calendar'
-import Navigation from './Navigation'
-import {dispatch, dispatchAsync} from '../index'
 
 /**
- * The main component of the App, containing the main template elements.
- *
- * @param {object} state - contains the state of app passed in from index.js
+ * Calendar Component
+ * @param  {array} calendarEvents - The events for calendar to display
+ * @return {VNode}
  */
-const AppComponent = ({state}) => {
+export default ({state: {calendarEvents}}) => {
 
   return (
-    &lt;div className="container">
-
-      {/*  Navigation  */}
-      &lt;Navigation/>
-
-      {/*  Calendar  */}
-      &lt;div className="row">
-        &lt;Calendar state={state} dispatch={dispatch} />
-      &lt;/div>
+    &lt;section>
+      &lt;div id="calendar" />
+    &lt;/section>
+  )
+}
 
 
-      &lt;div className="row">
-        &lt;div className="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
-          &lt;Example state={state} dispatch={dispatch} />
-        &lt;/div>
-      &lt;/div>
+jQuery(document).ready(function($) {
+  // page is now ready, initialize the calendar...
+  $('#calendar').fullCalendar({
+    header: { right: 'month,agendaWeek,agendaDay' }, // buttons for switching between views
 
-
-      {/*  Page and Footer  */}
-      &lt;Page state={state} dispatch={dispatch}/>
-
-
-      {/*  Example DOM
-      &lt;div className="row">
-        &lt;Example state={state} dispatch={dispatch} />
-      &lt;/div>
-      */}
-    &lt;/div>
-  );
-};
-
-
-export default AppComponent
+    dayClick: function() {
+      log('a day has been clicked!');
+    }
+  })
+});
 </code></pre>
         </article>
     </section>
