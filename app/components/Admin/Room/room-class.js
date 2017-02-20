@@ -64,32 +64,51 @@ export default class Room {
         //TODO: Check for ID and if has id then update not push
 
         const roomsRef = database.ref('rooms')
-        let newRoom
-
+  
         if (!Room.hasRoomInfo(room)) {
             throw "Before Saving Room To Firebase Ensure It Has Proper Info"
         }
 
         const {number, name, description, active} = room
 
-        newRoom = roomsRef.push()
-        newRoom.set({
+        //push and set at the same time
+        let newRoom = roomsRef.push({
             number,
             name,
             description,
             active
-        })
+        });
 
         room.key = newRoom.getKey();
         return room;
     }
 
+    static setCurrentRoom(room)
+    {
+        dispatch({type: 'CURRENT_ROOM', value: room})
+    }
+
+    static update(room)
+    {
+        dispatch({type: 'UPDATE_ROOM', value: room})
+    }
+
     static save(room) {
 
+        //TODO this is is a test to add to memory only
+        var newRoom = Object.assign({}, room);
+        newRoom.key = Date.now();
+        dispatch({type: 'ADD_ROOM', value: newRoom})
+
+        /*
         //create promise which will perform database update
         var promise = new Promise(function (resolve, reject) {
             try {
-                var newRoom = Room.saveToFirebase(room);
+                //var newRoom = Room.saveToFirebase(room);
+
+                var newRoom = room;
+                newRoom.key = Date.now();
+
                 resolve(newRoom); 
             }
             catch (e) {
@@ -99,42 +118,7 @@ export default class Room {
 
         //pass promise to dispatch
         dispatchAsync('ADD_ROOM', promise);
+        */
     }
-
-
 }
 
-/*
-
-RoomDetail.jsx - room form data
-room-class.js - defines Room class with helper static methods for reading\writing to firebase
-room-reducer.js - room specific reducer combined with other reducers
-
-1) user submits form data on RoomDetail.jsx
-2) form data is validated to make sure it's complete\accurate
-3) saveRoom method is called in room-class.js which does the following:
-
-//create a promise which will be passed to the reducer.  This promise contains the logic to save to the database.
-
-var roomPromise = new Promise(function(resolve, reject) {
-  // call firebase to add\update room
-
-  var room = ....logic to get database ref and add room
-
-  //room saved successfully
-  if (success) {
-    resolve(room); //resolve with the newly created\updated room object
-  }
-  else {
-    reject(Error("unable to save room"));
-  }
-});
-
-
-//pass this promise to dispatchAsync
-dispatchAsync('ADD_ROOM', roomPromise);
-
-//once resolved dispatchAsync will take care of calling the actual ADD_ROOM_RESOLVE reducer 
-//which contains the logic to add\update rooms array without mutating state.
-
-*/

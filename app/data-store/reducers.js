@@ -6,7 +6,8 @@ import roomReducers from './reducers/room-reducer'
 export const defaultState = {
   balance: 0,
   calendarEvents: [],
-   rooms: []
+  rooms: [],
+  currentRoom: null
 }
 
 /**

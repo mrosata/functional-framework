@@ -15,11 +15,33 @@
  */
 export default (state = defaultState, action) => {
 
+    //TODO should not change state
   switch (action.type) {
 
-    case 'ADD_ROOM_ASYNC':
-      console.log('in ADD_ROOM_ASYNC');
+    case 'CURRENT_ROOM':
+      state.currentRoom = action.value;
       return state;
+
+    case 'UPDATE_ROOM':
+      //create new state object
+      var newState = Object.assign({}, state, {currentRoom: null});
+      
+      //remove item based on key
+
+      //add new item
+
+      //update current item
+
+      //state.rooms.push(action.value);
+      return newState;
+
+    case 'ADD_ROOM':
+      state.rooms.push(action.value);
+      return state;
+
+    // case 'ADD_ROOM_ASYNC':
+    //   console.log('in ADD_ROOM_ASYNC');
+    //   return state;
 
     case 'ADD_ROOM_CATCH':
       console.log('in ADD_ROOM_CATCH');
@@ -27,11 +49,12 @@ export default (state = defaultState, action) => {
 
     case 'ADD_ROOM_RESOLVE':
       console.log('in ADD_ROOM_RESOLVE')
-      console.log(action.value);
 
-       state.rooms.push(action.value);
-       return state;
+      //TODO this is mutating state which is bad
+      state.rooms.push(action.value);
 
+      return state;
+      //return Object.assign({}, state, { rooms: [].concat(action.value) });
 
 
     default:

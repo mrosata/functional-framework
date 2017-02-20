@@ -2,11 +2,10 @@
 import dom from '../../../utils/dom';
 import Room from './room-class.js'
 
-const tempRoom = new Room(456, 'Room1', '4th floor');
+var tempRoom = new Room();
 
-function addTestRoom() {
-    console.log('addTestRoom');
 
+function addRoom() {
     //validate
     if (!Room.hasRoomInfo(tempRoom)) {
         console.log('missing room info');
@@ -14,23 +13,16 @@ function addTestRoom() {
     }
 
     Room.save(tempRoom);
+}
 
-    // return new Promise((resolve, reject) => {
-    //     //let room = new Room(115, 'Large Meeting Room', '1st floor', true);
-    //     console.log(tempRoom);
+function updateRoom() {
+    //validate
+    if (!Room.hasRoomInfo(tempRoom)) {
+        console.log('missing room info');
+        throw "Before Saving Room To Firebase Ensure It Has Proper Info"
+    }
 
-    //     //validate
-    //     if (!Room.hasRoomInfo(tempRoom)) {
-    //         console.log('missing room info');
-    //         throw "Before Saving Room To Firebase Ensure It Has Proper Info"
-    //     }
-
-    //     //save to firebase
-    //     //Room.saveToFirebase(tempRoom);
-
-    //     //need to dispatch?
-
-    // })
+    Room.update(tempRoom);
 }
 
 
@@ -43,17 +35,42 @@ function handleNameChange(event) {
         value = +value; //convert to number
 
     tempRoom[name] = value;
-
-    console.log('tempRoom -->');
-    console.log(tempRoom);
 }
 
 
-export default () => {
+export default ({state}) => {
+    console.log('in room detail', state);
+    tempRoom = state.currentRoom;
+
+    if (state.currentRoom == null)
+        tempRoom = new Room();
+
+    function getAddButton() {
+        if (state.currentRoom == null) {
+            return (
+                <span className="btn btn-success"
+                    onclick={
+                        () => addRoom()
+
+                    }>Add Room</span>
+            );
+        }
+    }
+
+    function getUpdateButton() {
+        if (state.currentRoom != null) {
+            return (
+                <span className="btn btn-success"
+                    onclick={
+                        () => updateRoom()
+
+                    }>Update Room</span>
+            );
+        }
+    }
 
     return (
-
-        <div className="container">
+        <div>
             <h3>Room Detail</h3>
             <div>
                 <form>
@@ -82,12 +99,8 @@ export default () => {
                         </div>
                     </div>
                 </form>
-                <div>{JSON.stringify(tempRoom)}</div>
-                <span className="btn btn-success"
-                    onclick={
-                        () => addTestRoom()
-
-                    }>Add Room</span>
+                {getAddButton()}
+                {getUpdateButton()}
             </div>
         </div>
     );
