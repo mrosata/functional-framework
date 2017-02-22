@@ -20,7 +20,7 @@ function deleteRoom() {
 }
 
 function newRoom() {
-    Room.save(tempRoom);
+    Room.setCurrentRoom(null);
 }
 
 function updateRoom() {
@@ -67,7 +67,7 @@ export default ({state}) => {
                 <div>
                     <span className="btn btn-success" onclick={() => updateRoom()}>Update Room</span>
                     <span className="btn btn-danger" onclick={() => deleteRoom()}>Delete Room</span>
-                    <span className="btn btn-info" onclick={() => updateRoom()}>New Room</span>
+                    <span className="btn btn-info" onclick={() => newRoom()}>New Room</span>
                 </div>
             );
         }
