@@ -44,9 +44,9 @@ const AppComponent = ({state}) => {
         <Navigation />
 
         {/*  Calendar  */}
-        {/*<div className="row">
+        <div className="row">
           <Calendar state={state} dispatch={dispatch} />
-        </div>*/}
+        </div>
 
 
         <div className="row">
