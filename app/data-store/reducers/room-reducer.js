@@ -22,6 +22,14 @@ export default (state = defaultState, action) => {
       state.currentRoom = action.value;
       return state;
 
+    case 'DELETE_ROOM':
+      //copy state
+      var newState = Object.assign({}, state, {currentRoom: null});
+      newState.rooms = newState.rooms.filter((room) => room.key !== action.value.key);
+
+      return newState;
+      
+
     case 'UPDATE_ROOM':
       //create new state object
       var newState = Object.assign({}, state, {currentRoom: null});

@@ -93,6 +93,11 @@ export default class Room {
         dispatch({type: 'UPDATE_ROOM', value: room})
     }
 
+    static delete(room)
+    {
+        dispatch({type: 'DELETE_ROOM', value: room})
+    }
+
     static save(room) {
 
         //TODO this is is a test to add to memory only

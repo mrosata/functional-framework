@@ -15,6 +15,14 @@ function addRoom() {
     Room.save(tempRoom);
 }
 
+function deleteRoom() {
+    Room.delete(tempRoom);
+}
+
+function newRoom() {
+    Room.save(tempRoom);
+}
+
 function updateRoom() {
     //validate
     if (!Room.hasRoomInfo(tempRoom)) {
@@ -48,23 +56,19 @@ export default ({state}) => {
     function getAddButton() {
         if (state.currentRoom == null) {
             return (
-                <span className="btn btn-success"
-                    onclick={
-                        () => addRoom()
-
-                    }>Add Room</span>
+                <span className="btn btn-success" onclick={() => addRoom()}>Add Room</span>
             );
         }
     }
 
-    function getUpdateButton() {
+    function getOtherButtons() {
         if (state.currentRoom != null) {
             return (
-                <span className="btn btn-success"
-                    onclick={
-                        () => updateRoom()
-
-                    }>Update Room</span>
+                <div>
+                    <span className="btn btn-success" onclick={() => updateRoom()}>Update Room</span>
+                    <span className="btn btn-danger" onclick={() => deleteRoom()}>Delete Room</span>
+                    <span className="btn btn-info" onclick={() => updateRoom()}>New Room</span>
+                </div>
             );
         }
     }
@@ -100,7 +104,7 @@ export default ({state}) => {
                     </div>
                 </form>
                 {getAddButton()}
-                {getUpdateButton()}
+                {getOtherButtons()}
             </div>
         </div>
     );
