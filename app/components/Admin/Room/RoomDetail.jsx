@@ -23,6 +23,10 @@ function newRoom() {
     Room.setCurrentRoom(null);
 }
 
+function loadRooms() {
+    Room.loadRooms();
+}
+
 function updateRoom() {
     //validate
     if (!Room.hasRoomInfo(tempRoom)) {
@@ -56,7 +60,10 @@ export default ({state}) => {
     function getAddButton() {
         if (state.currentRoom == null) {
             return (
-                <span className="btn btn-success" onclick={() => addRoom()}>Add Room</span>
+                <div>
+                    <span className="btn btn-success" onclick={() => addRoom()}>Add Room</span>
+                    <span className="btn btn-success" onclick={() => loadRooms()}>Load Rooms</span>
+                </div>
             );
         }
     }

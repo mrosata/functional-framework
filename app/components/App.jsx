@@ -6,22 +6,11 @@ import Example from './Example'
 import Calendar from './Calendar'
 import Navigation from './Navigation'
 
-import Room from './Admin/Room/room-class.js'
-
-import RoomComp from './Admin/Room/Room'
+import Room from './Admin/Room/Room'
 
 import { dispatch, dispatchAsync } from '../index'
 
-function getRoomsFromFirebase() {
-  // Get the rooms from firebase
-  Room.ref().on('value', (snapshot) =>{
-      snapshot.forEach(snap => {
 
-        var room = Room.fromFirebaseSnapshot(snap);
-        dispatch('ADD_ROOM', room);
-      })
-  });
-}
 
 
 
@@ -59,7 +48,7 @@ const AppComponent = ({state}) => {
         {/*  Page and Footer  */}
         <Page state={state} dispatch={dispatch} />
 
-        <RoomComp state={state} dispatch={dispatch} />
+        <Room state={state} dispatch={dispatch} />
 
         {/*  Example DOM
       <div className="row">

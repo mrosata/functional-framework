@@ -21,6 +21,19 @@ export default class Room {
         return database.ref('rooms')
     }
 
+    static loadRooms() {
+
+        dispatch({ type: 'CLEAR_ROOMS'});
+
+
+        Room.ref().on('value', (snapshot) => {
+            snapshot.forEach(snap => {
+                var room = Room.fromFirebaseSnapshot(snap);
+                dispatch({ type: 'ADD_ROOM', value: room });
+            })
+        });
+    }
+
 
     static fromFirebaseSnapshot(snapshot) {
 
@@ -64,7 +77,7 @@ export default class Room {
         //TODO: Check for ID and if has id then update not push
 
         const roomsRef = database.ref('rooms')
-  
+
         if (!Room.hasRoomInfo(room)) {
             throw "Before Saving Room To Firebase Ensure It Has Proper Info"
         }
@@ -83,38 +96,36 @@ export default class Room {
         return room;
     }
 
-    static setCurrentRoom(room)
-    {
-        dispatch({type: 'CURRENT_ROOM', value: room})
+    static setCurrentRoom(room) {
+        dispatch({ type: 'CURRENT_ROOM', value: room })
     }
 
-    static update(room)
-    {
-        dispatch({type: 'UPDATE_ROOM', value: room})
+    static update(room) {
+        dispatch({ type: 'UPDATE_ROOM', value: room })
     }
 
-    static delete(room)
-    {
-        dispatch({type: 'DELETE_ROOM', value: room})
+    static delete(room) {
+        dispatch({ type: 'DELETE_ROOM', value: room })
     }
 
     static save(room) {
 
         //TODO this is is a test to add to memory only
-        var newRoom = Object.assign({}, room);
-        newRoom.key = Date.now();
-        dispatch({type: 'ADD_ROOM', value: newRoom})
+        //var newRoom = Object.assign({}, room);
+        //newRoom.key = Date.now();
+        //dispatch({type: 'ADD_ROOM', value: newRoom})
 
-        /*
+
         //create promise which will perform database update
         var promise = new Promise(function (resolve, reject) {
             try {
-                //var newRoom = Room.saveToFirebase(room);
+                var newRoom = Object.assign({}, room);
+                var newRoom = Room.saveToFirebase(room);
 
-                var newRoom = room;
-                newRoom.key = Date.now();
+                //var newRoom = room;
+                //newRoom.key = Date.now();
 
-                resolve(newRoom); 
+                resolve(newRoom);
             }
             catch (e) {
                 reject(Error("unable to save room"));
@@ -123,7 +134,7 @@ export default class Room {
 
         //pass promise to dispatch
         dispatchAsync('ADD_ROOM', promise);
-        */
+
     }
 }
 

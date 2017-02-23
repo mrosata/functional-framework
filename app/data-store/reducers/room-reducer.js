@@ -21,6 +21,9 @@ export default (state = defaultState, action) => {
     case 'CURRENT_ROOM':
       return Object.assign({}, state, { currentRoom: action.value });
 
+    case 'CLEAR_ROOMS':
+      return Object.assign({}, state, { currentRoom: null, rooms:[] });
+
     case 'DELETE_ROOM':
       return Object.assign({}, state, { currentRoom: null }, { rooms: state.rooms.filter((room) => room.key !== action.value.key) });
 
