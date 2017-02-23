@@ -23,8 +23,8 @@ export default class Room {
 
     static loadRooms() {
 
-        dispatch({ type: 'CLEAR_ROOMS'});
-
+        //TODO should be async
+        dispatch({ type: 'CLEAR_ROOMS' });
 
         Room.ref().on('value', (snapshot) => {
             snapshot.forEach(snap => {
@@ -43,15 +43,13 @@ export default class Room {
 
         // Create the instance of Event using Firebase Snapshot
         let {number, name, description, active} = snapshot.val()
+        const room = new Room(number, name, description, active)
 
-        const evt = new Room(number, name, description, active)
-
-        //console.log(snapshot.getKey());
 
         // Set the ID (//TODO: this might be better in constructor now that data is live)
-        evt.key = snapshot.getKey();
+        room.key = snapshot.getKey();
 
-        return evt
+        return room
     }
 
 
@@ -101,6 +99,15 @@ export default class Room {
     }
 
     static update(room) {
+        //get reference based on key
+        var path = 'rooms/' + room.key;
+        var roomRef = database.ref(path);
+
+        //update firebase
+        roomRef.update({ number: room.number, name: room.name, description: room.description, active:room.active });
+
+        //TODO use async
+
         dispatch({ type: 'UPDATE_ROOM', value: room })
     }
 
@@ -120,10 +127,7 @@ export default class Room {
         var promise = new Promise(function (resolve, reject) {
             try {
                 var newRoom = Object.assign({}, room);
-                var newRoom = Room.saveToFirebase(room);
-
-                //var newRoom = room;
-                //newRoom.key = Date.now();
+                newRoom = Room.saveToFirebase(room);
 
                 resolve(newRoom);
             }
