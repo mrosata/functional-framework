@@ -17,9 +17,16 @@ export default class Room {
      * Firebase Reference to Rooms
      * @return {object}
      */
-    static ref() {
-        return database.ref('rooms')
+    static ref(key) {
+        if (key == null)
+            return database.ref('rooms')
+        else
+            return database.ref('rooms/' + key);
     }
+
+    // static ref(key){
+    //     return database.ref('rooms/' + key);
+    // }
 
     static loadRooms() {
 
@@ -99,12 +106,10 @@ export default class Room {
     }
 
     static update(room) {
-        //get reference based on key
-        var path = 'rooms/' + room.key;
-        var roomRef = database.ref(path);
+        var roomRef = Room.ref(room.key);
 
         //update firebase
-        roomRef.update({ number: room.number, name: room.name, description: room.description, active:room.active });
+        roomRef.update({ number: room.number, name: room.name, description: room.description, active: room.active });
 
         //TODO use async
 
@@ -112,6 +117,9 @@ export default class Room {
     }
 
     static delete(room) {
+        //TODO use async
+        Room.ref(room.key).remove();
+
         dispatch({ type: 'DELETE_ROOM', value: room })
     }
 
