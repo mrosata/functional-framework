@@ -6,7 +6,7 @@ const BUILD_DIR = path.resolve(__dirname, 'build');
 const APP_DIR = path.resolve(__dirname ,'app');
 
 module.exports = {
-  entry:     `${APP_DIR}/index.js`,
+  entry:     `${APP_DIR}/index.jsx`,
   output:    {
     path:       BUILD_DIR,
     filename:   'bundle.js',

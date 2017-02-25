@@ -1,5 +1,6 @@
 "use strict"
 import {log} from '../utils/logger'
+import {reduce} from 'ramda'
 
 /* Create a styled logging system to show state as actions are dispatched */
 const LOGSTYLE = 'font-size: 1rem;font-weight:bold;color:'
@@ -63,17 +64,46 @@ export function createStore(reducer, state) {
     }
   }
 
+  const dispatchAsync = (actionName, promiseFn, optionalValue) => {
+    if (typeof actionName !== "string" || (!promiseFn || typeof promiseFn !== "object" || typeof promiseFn.then !== "function")) {
+      throw new Error(`The first argument to dispatchAsync should be a string, and the second a promise. `
+        + `You passed (${typeof actionName}, ${typeof promiseFn === "object" ? promiseFn.constructor : typeof promiseFn}) `
+        + `The name of action you pass will be used to trigger 2 events, a ASYNC event and RESOLVE or REJECT event`
+        + ` The dispatchAsync function will dispatch an action type 'NAME_ASYNC', then 'NAME_RESOLVE' or 'NAME_CATCH'`
+        + ` --- You should have the chance to catch a rejection and fix it before it is handled by dispatch `
+        + `(set that up as part of the promise you pass in.`)
+    }
+    const actionNameUpper = `${actionName}`.toUpperCase()
+
+    // Dispatch an action when the promise kicks off (with optional value)
+    dispatch({type: `${actionNameUpper}_ASYNC`, value: optionalValue})
+
+    return promiseFn
+      .then(value => {
+        return dispatch({type: `${actionNameUpper}_RESOLVE`, value: value});
+      })
+      .catch(err => {
+        return dispatch({type: `${actionNameUpper}_CATCH`, value: err})
+      })
+  }
+
+
   // Set off an initial dispatch (or else state will be empty)
   dispatch({type: 'INITIAL', value: currentState})
   return {
     subscribe,
     dispatch,
+    dispatchAsync,
     getState
   }
 }
 
 export function combineReducers(...reducers) {
-
+  return (state = {}, action = {}) => {
+    return reduce((accumState, reducer) => {
+      return reducer(accumState, action);
+    }, state)(reducers)
+  }
 }
 
 export default {

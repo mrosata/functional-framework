@@ -9,3 +9,4 @@ build/*
 !build/favicon.ico
 
 project-config.js
+.yarn-lock
