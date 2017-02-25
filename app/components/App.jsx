@@ -1,16 +1,12 @@
 "use strict"
 import dom from '../utils/dom'
 
-import Router, { Route, Link } from './Router'
+import Footer from './Footer'
 import Example from './Example'
 import Calendar from './Calendar'
-import Navigation from './Navigation'
-
 import Room from './Admin/Room/Room'
-
-import { dispatchAsync } from '../index'
-
-
+import Navigation from './Navigation'
+import Router, {Route, Link} from './Router'
 
 
 /**
@@ -24,23 +20,32 @@ const AppComponent = ({state, dispatch}) => {
     <div className="container">
 
       {/*  Navigation  */}
-      <Navigation state={state}>
+      <Navigation state={state} dispatch={dispatch}>
         {/* Note: Nested children will be the 2nd argument passed to your component */}
         <strong>Democracy Center</strong>
         <span className="small">
-          &nbsp; Events &nbsp;
-            <i className="fa fa-flag" />
-        </span>
+            &nbsp; Events &nbsp;
+          <i className="fa fa-flag"/>
+          </span>
       </Navigation>
 
-      <Router className="row" state={state} dispatch={dispatch}>
+
+      <section className="row">
         {/*  Calendar route="calendar" */}
-        <Route route="index" state={state} dispatch={dispatch} component={Calendar} />
+        <Route route="index" state={state} dispatch={dispatch} component={Calendar}/>
         {/* Example route="example" */}
-        <Route route="example" state={state} dispatch={dispatch} component={Example} />
+        <Route route="example" state={state} dispatch={dispatch} component={Example}/>
         {/*  Admin route="" */}
-        <Route route="admin" state={state} dispatch={dispatch} component={Room} />
-      </Router>
+        <Route route="admin" state={state} dispatch={dispatch} component={Room}/>
+      </section>
+
+      {/* Footer */}
+      <Footer state={state}>
+        <strong className="lead label label-danger">
+          <i className="fa fa-copyright"></i> MA <em>Web</em>
+        </strong> <em className="lead label label-info">Developers</em>
+        <strong className="small label label-success">2017</strong>
+      </Footer>
 
     </div>
   );
