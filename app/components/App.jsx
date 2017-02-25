@@ -1,7 +1,7 @@
 "use strict"
 import dom from '../utils/dom'
 
-import Router, {Route, Link} from './Router'
+import Router, { Route, Link } from './Router'
 import Example from './Example'
 import Calendar from './Calendar'
 import Navigation from './Navigation'
@@ -20,31 +20,31 @@ import { dispatchAsync } from '../index'
  */
 const AppComponent = ({state, dispatch}) => {
 
-    return (
-      <div className="container">
+  return (
+    <div className="container">
 
-        {/*  Navigation  */}
-        <Navigation state={state}>
-          {/* Note: Nested children will be the 2nd argument passed to your component */}
-          <strong>Democracy Center</strong>
-          <span className="small">
-            &nbsp; Events &nbsp;
-            <i className="fa fa-flag"/>
-          </span>
-        </Navigation>
+      {/*  Navigation  */}
+      <Navigation state={state}>
+        {/* Note: Nested children will be the 2nd argument passed to your component */}
+        <strong>Democracy Center</strong>
+        <span className="small">
+          &nbsp; Events &nbsp;
+            <i className="fa fa-flag" />
+        </span>
+      </Navigation>
 
-        <Router className="row" state={state} dispatch={dispatch}>
-          {/*  Calendar route="calendar" */}
-          <Route route="index" state={state} dispatch={dispatch} component={Calendar}/>
-          {/* Example route="example" */}
-          <Route route="example"  state={state} dispatch={dispatch} component={Example}/>
-          {/*  Admin route="" */}
-          <Route route="admin"  state={state} dispatch={dispatch} component={Room}/>
-        </Router>
+      <Router className="row" state={state} dispatch={dispatch}>
+        {/*  Calendar route="calendar" */}
+        <Route route="index" state={state} dispatch={dispatch} component={Calendar} />
+        {/* Example route="example" */}
+        <Route route="example" state={state} dispatch={dispatch} component={Example} />
+        {/*  Admin route="" */}
+        <Route route="admin" state={state} dispatch={dispatch} component={Room} />
+      </Router>
 
-      </div>
-    );
-  };
+    </div>
+  );
+};
 
 
-  export default AppComponent
+export default AppComponent

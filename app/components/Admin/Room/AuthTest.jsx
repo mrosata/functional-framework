@@ -1,5 +1,7 @@
 "use strict"
 
+import firebase from 'firebase'
+
 import dom from '../../../utils/dom';
 import { dispatch, dispatchAsync } from '../../../index'
 import { database, auth } from '../../../utils/firebase-app'
@@ -8,6 +10,8 @@ import { database, auth } from '../../../utils/firebase-app'
 function login() {
     console.log('in login');
 
+    let provider = new firebase.auth.GoogleAuthProvider()
+    console.log(provider);
 
     //get DOM values
     const txtEmail = document.getElementById('txtEmail');
@@ -18,19 +22,16 @@ function login() {
     const email = txtEmail.value;
     const password = txtPassword.value;
 
-    const promise = auth.signInWithEmailAndPassword(email, password);
+    // const promise = auth.signInWithEmailAndPassword(email, password);
+
+    const promise = auth.signInWithRedirect(provider);
 
     console.log('promise', promise);
 
     promise.catch(e => console.log(e.message));
-
-    //auth.onAuthStateChanged(firebaseUser => {}) 
-    //promise called whenever authorization changes
-    //firebaseUser either populated with user info or null if user signed out
 }
 
-function signup()
-{
+function signup() {
     console.log('in sign up');
     //get DOM values
     const txtEmail = document.getElementById('txtEmail');
@@ -43,8 +44,7 @@ function signup()
     promise.catch(e => console.log(e.message));
 }
 
-function logout()
-{
+function logout() {
     console.log('in logout');
     auth.signOut();
 }
@@ -53,21 +53,28 @@ auth.onAuthStateChanged(firebaseUser => {
     const btnLogOut = document.getElementById('btnLogOut');
 
     console.log('in onAuthStateChanged');
-    if(firebaseUser)
-    {
+    if (firebaseUser) {
         console.log('firebaseUser', firebaseUser);
-        btnLogOut.classList.remove('hide');
+
+        if (btnLogOut)
+            btnLogOut.classList.remove('hide');
     }
-    else
-    {
+    else {
         console.log('not logged in');
-        btnLogOut.classList.add('hide');
+
+        if (btnLogOut)
+            btnLogOut.classList.add('hide');
     }
 });
+
+var signInWithPopup = function() {
+  window.open('/widget.html', 'Sign In', 'width=985,height=735');
+};
 
 export default ({state, dispatch}) => {
     return (
         <div className="container">
+            <button id="sign-in-with-popup" onclick={() => signInWithPopup()}>Sign In with Popup</button>
             <h1>In Auth Test</h1>
             <span className="btn btn-success" onclick={() => login()}>Login</span>
             <div className="container">

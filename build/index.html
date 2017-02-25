@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,19 @@
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
+  <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+  <!--<link type="text/css" rel="stylesheet" href="bower_components/firebaseui/dist/firebaseui.css" />-->
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
   <script src="bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!--<script src="bower_components/firebaseui/dist/firebaseui.js"></script>-->
+
+
 
   <script>
     window._CONFIG = window._CONFIG || {}
@@ -29,12 +37,13 @@
     }
   </script>
 
+
 </head>
+
 <body>
+  <section id="app"></section>
 
-<section id="app"></section>
-
-<script src="bundle.js"></script>
-
+  <script src="bundle.js"></script>
 </body>
+
 </html>
