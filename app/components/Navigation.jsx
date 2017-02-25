@@ -2,7 +2,7 @@
 import dom from '../utils/dom';
 import {dispatch, dispatchAsync} from '../index'
 
-export default (state) => {
+export default ({state, dispatch}, innerContent) => {
 
   return (
     <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -18,7 +18,7 @@ export default (state) => {
             <span className="icon-bar">&nbsp;</span>
             <span className="icon-bar">&nbsp;</span>
           </button>
-          <a className="navbar-brand" href="#">Democracy Center Events</a>
+          <a className="navbar-brand" href="#">{innerContent}</a>
         </div>
         {/*  Collect the nav links, forms, and other content for toggling  */}
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

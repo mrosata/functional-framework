@@ -25,7 +25,14 @@ const AppComponent = ({state}) => {
       <div className="container">
 
         {/*  Navigation  */}
-        <Navigation />
+        <Navigation state={state}>
+          {/* Note: Nested children will be the 2nd argument passed to your component */}
+          <strong>Democracy Center</strong>
+          <span className="small">
+            &nbsp; Events &nbsp;
+            <i className="fa fa-flag"/>
+          </span>
+        </Navigation>
 
         {/*  Calendar  */}
         <div className="row">

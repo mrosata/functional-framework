@@ -41,7 +41,7 @@ export function renderDOM(treeBuilder, root, _state = {}) {
 export default function dom(type, props, ...children) {
   if (typeof type === "function") {
     // Pass the state into the function to get the elem tree
-    return type(props)
+    return type(props, children);
   }
   // Element doesn't have state (or it's already hydrated)
   return h(type, props, children)
