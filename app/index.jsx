@@ -47,6 +47,15 @@ const unsubscribe = subscribe(
 })
 
 
+
+window.onpopstate = function() {
+
+  if (window && window.location) {
+    const {hash} = window.location || '#';
+    dispatch({type: 'NAVIGATE_FROM_HASH', value: hash})
+  }
+};
+
 export {dispatch, dispatchAsync, getState}
 
 

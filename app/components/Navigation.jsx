@@ -1,6 +1,6 @@
 "use strict"
 import dom from '../utils/dom';
-import {dispatch, dispatchAsync} from '../index'
+import {Link} from './Router';
 
 export default ({state, dispatch}, innerContent) => {
 
@@ -24,10 +24,13 @@ export default ({state, dispatch}, innerContent) => {
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul className="nav navbar-nav">
             <li>
-              <a href="#">Events</a>
+              <Link route="index" state={state}>Calendar</Link>
             </li>
             <li>
-              <a href="#">Admin</a>
+              <Link route="example" state={state}>Example</Link>
+            </li>
+            <li>
+              <Link route="admin" state={state}>Admin</Link>
             </li>
           </ul>
         </div>
