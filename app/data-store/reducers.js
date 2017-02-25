@@ -1,10 +1,13 @@
 "use strict"
 import {combineReducers} from './index'
 import exampleReducers from './reducers/example-reducer'
+import roomReducers from './reducers/room-reducer'
 
 export const defaultState = {
   balance: 0,
-  calendarEvents: []
+  calendarEvents: [],
+  rooms: [],
+  currentRoom: null
 }
 
 /**
@@ -41,4 +44,4 @@ const mainReducer = (state = defaultState, action) => {
  *
  * Import your custom reducer at the top of file and add it as an argument here
  */
-export default combineReducers(mainReducer, exampleReducers/*, ... reducerN, reducerN+1 ... */);
+export default combineReducers(mainReducer, exampleReducers, roomReducers/*, ... reducerN, reducerN+1 ... */);
