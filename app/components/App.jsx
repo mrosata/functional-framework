@@ -1,6 +1,7 @@
 "use strict"
 import dom from '../utils/dom'
 
+import Router, {Link} from './Router'
 import Page from './Page'
 import Example from './Example'
 import Calendar from './Calendar'
@@ -13,18 +14,12 @@ import { dispatch, dispatchAsync } from '../index'
 
 
 
-
-
-
 /**
  * The main component of the App, containing the main template elements.
  *
  * @param {object} state - contains the state of app passed in from index.js
  */
 const AppComponent = ({state}) => {
-
-    //getRoomsFromFirebase();
-
 
     return (
       <div className="container">
@@ -37,6 +32,7 @@ const AppComponent = ({state}) => {
           <Calendar state={state} dispatch={dispatch} />
         </div>
 
+        <Link hash="admin" component={Room} state={state} dispatch={dispatch}>Hello</Link>
 
         <div className="row">
           <div className="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
