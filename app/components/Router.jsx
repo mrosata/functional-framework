@@ -1,5 +1,5 @@
-import dom from '../utils/dom';
-import {dispatch} from '../index';
+import dom from '../utils/dom'
+import {dispatch} from '../index'
 
 export const Link = ({state = {}, route = ''}, innerContent = ['']) => {
   const currentRoute = state.router ? state.router.route : ''

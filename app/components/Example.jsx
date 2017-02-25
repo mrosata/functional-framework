@@ -22,7 +22,7 @@ function alertWhenCheckboxChanges(){
  */
 const ExampleComponent = ({state: {balance}}) => {
   // Using destructuring in the params above we don't have to do
-  // const balance = state.balance;
+  // const balance = state.balance
   // uncomment line below, it's already set
   // log(`balance -> ${balance}`)
 
@@ -52,8 +52,8 @@ const ExampleComponent = ({state: {balance}}) => {
       </form>
 
     </div>
-  );
-};
+  )
+}
 
 
 /**

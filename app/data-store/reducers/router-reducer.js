@@ -21,16 +21,12 @@ function configureStateRouter(state={}, action) {
 
 export const getInitialRouter = (location = {hash: ''}) => {
   const hash = location.hash
-  return routeFromHash(hash)
+  return {route: routeFromHash(hash)}
 }
 
 
-function routeFromHash(hash = '#') {
-  if (!/#[a-z0-9]+/i.exec(hash)) {
-    return DEFAULT_ROUTE
-  }
-  const parts = hash.match(/#([a-z0-9]+)/i).filter(x => !x.match(/^#/i))
-  const route = parts && parts.length > 0 ? parts[0] : DEFAULT_ROUTE
+function routeFromHash(hash = '#', defaultRoute = DEFAULT_ROUTE) {
+  const [, route=defaultRoute] = [].concat(/^#?([a-z0-9\-]+)/i.exec(hash), defaultRoute)
   return route
 }
 
@@ -43,7 +39,8 @@ export default (state = {}, action) => {
       return configureStateRouter(state, action)
 
     case 'NAVIGATE_FROM_HASH':
-      return configureStateRouter(state, {value: routeFromHash(action.value)})
+      const hashString = routeFromHash(action.value)
+      return configureStateRouter(state, {value: hashString})
 
     default:
       // @desc Always have a default to return state object
