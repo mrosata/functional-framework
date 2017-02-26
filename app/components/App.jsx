@@ -8,6 +8,8 @@ import Room from './Admin/Room/Room'
 import Navigation from './Navigation'
 import Router, {Route, Link} from './Router'
 
+import firebaseApp from '../utils/firebase-app'
+
 
 /**
  * The main component of the App, containing the main template elements.
@@ -29,6 +31,9 @@ const AppComponent = ({state, dispatch}) => {
           </span>
       </Navigation>
 
+
+      <button onclick={() => firebaseApp.googleAuth()}
+        className="btn btn-lg btn-success fa fa-google-plus">Google Signin</button>
 
       <section className="row">
         {/*  Calendar route="calendar" */}
