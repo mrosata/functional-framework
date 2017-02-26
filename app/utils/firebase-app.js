@@ -71,6 +71,23 @@ class FirebaseInstance {
     throw "Firebase Instance Should Not Be Set Up Twice!"
   }
 
+  googleAuth() {
+    // Using a redirect.
+    firebase.auth().getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // This gives you a Google Access Token.
+        const token = result.credential.accessToken;
+      }
+      const user = result.user;
+    });
+
+    // Start a sign in process for an unauthenticated user.
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    firebase.auth().signInWithRedirect(provider);
+  }
+
 }
 
 
