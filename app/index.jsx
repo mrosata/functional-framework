@@ -3,14 +3,11 @@ import './styles/main.scss'
 
 import App from './components/App'
 import dom, {renderDOM} from 'utils/dom'
-import reducers, {defaultState} from 'data-store/reducers'
 import {createStore} from './data-store/index'
 import {database, auth} from './utils/firebase-app'
-import {log} from './utils/logger'
+import reducers, {defaultState} from 'data-store/reducers'
+import {setupRouterPopstate} from 'data-store/reducers/router-reducer'
 
-database.ref('/events').on('value', (snapshot) => {
-  log('Data From Firebase -> ', snapshot.exportVal())
-})
 
 // Setup Our Store. (also only needs to be done once)
 const {subscribe, dispatch, dispatchAsync, getState} = createStore(reducers, defaultState)
@@ -46,29 +43,7 @@ const unsubscribe = subscribe(
     return void 0
 })
 
-
-
-window.onpopstate = function() {
-
-  if (window && window.location) {
-    const {hash} = window.location || '#';
-    dispatch({type: 'NAVIGATE_FROM_HASH', value: hash})
-  }
-};
+// Setup the router so history works
+setupRouterPopstate(dispatch, window)
 
 export {dispatch, dispatchAsync, getState}
-
-
-/*
-
-// Uncomment this if you would like to see how the dispatchAsync works.
-// There are no reducers that handle it, so it won't have an effect on
-// the state of app... but you can see it dispatch action in web console.
-
-dispatchAsync('STEEL', new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(`This should be value of 'STEEL_RESOLVE'`)
-  }, 1000)
-}))
-
-*/
