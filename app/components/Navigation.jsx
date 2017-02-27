@@ -1,6 +1,6 @@
 "use strict"
-import dom from '../utils/dom'
-import {Link} from './Router'
+import dom from '../utils/dom';
+import {Link} from './Router';
 
 export default ({state, dispatch}, innerContent) => {
 
@@ -38,5 +38,5 @@ export default ({state, dispatch}, innerContent) => {
       </div>
       {/*  /.container  */}
     </nav>
-  )
+  );
 }
