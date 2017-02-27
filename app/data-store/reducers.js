@@ -1,5 +1,6 @@
 "use strict"
 import routerReducers, {getInitialRouter} from './reducers/router-reducer';
+import firebaseReducers from './reducers/firebase-reducer'
 import exampleReducers from './reducers/example-reducer'
 import roomReducers from './reducers/room-reducer'
 import {combineReducers} from './index'
@@ -9,7 +10,8 @@ export const defaultState = {
   calendarEvents: [],
   rooms:          [],
   currentRoom:    null,
-  router:         getInitialRouter(window.location)
+  router:         getInitialRouter(window.location),
+  auth:           null
 }
 
 /**
@@ -46,4 +48,4 @@ const mainReducer = (state = defaultState, action) => {
  *
  * Import your custom reducer at the top of file and add it as an argument here
  */
-export default combineReducers(mainReducer, exampleReducers, roomReducers, routerReducers);
+export default combineReducers(mainReducer, exampleReducers, roomReducers, routerReducers, firebaseReducers);

@@ -5,14 +5,13 @@ import firebase from 'firebase'
 class FirebaseInstance {
 
   /**
-  * Setup the Firebase Instance by calling this with app keys.
-  * This only has to be done once and should be done through the
-  * app/index.js file as that is the entry for webpack bundle.js.
-  *
-  * @return {void}
-  */
+   * Setup the Firebase Instance by calling this with app keys.
+   * This only has to be done once and should be done through the
+   * app/index.js file as that is the entry for webpack bundle.js.
+   *
+   * @return {void}
+   */
   constructor () {
-    this.isError = false
 
     try {
       if (typeof window._CONFIG === "undefined" || !window._CONFIG.FIREBASE) {
@@ -22,70 +21,65 @@ class FirebaseInstance {
       this.instance = firebase.initializeApp(window._CONFIG.FIREBASE)
     }
     catch(err) {
-      this.isError = true
       console.error(`Unable to initialize Firebase... ${err}`);
-      console.trace(`Take a hint.`)
+      console.trace(`Here's a hint.`)
     }
   }
 
-
-  /**
-   * @alias firebase.database()
-   * @return {firebase.database} Firebase database
-   */
-  get auth () {
-    return typeof this._instance === "undefined" ? void(0) : this._instance.auth()
+  get firebase() {
+    return firebase
   }
 
-  set auth(val) {
-    throw "Don't set the auth on firebaseApp!"
-  }
-
-
   /**
+   * Same as calling firebase.database()
    * @alias firebase.database()
-   * @return {firebase.database} Firebase database
+   *
+   * @returns {firebase.database.Database|!firebase.database.Database}
    */
   get database() {
-    return typeof this._instance === "undefined" ? void(0) : this._instance.database()
+    return this.instance.database()
   }
 
-  set database(val) {
-    throw "Don't set the database property on firebaseApp!"
+  /**
+   * Same as calling firebase.auth()
+   * @alias firebase.auth()
+   *
+   * @returns {!firebase.auth.Auth|firebase.auth.Auth}
+   */
+  get auth() {
+    return this.instance.auth()
+  }
+
+  /**
+   * Signs the user out from Firebase
+   * @returns {firebase.Promise<any>|!firebase.Promise.<void>}
+   */
+  signOut() {
+    //          firebase.auth().signOut()
+    return this.firebase.auth().signOut()
   }
 
 
   /**
-   * The initialized Firebase Instance For App
-   * @return {object}
+   * Get Token from currentUser
+   * @returns {!firebase.Promise.<string>|firebase.Promise<any>}
    */
-  get instance() {
-    return this._instance
-  }
-
-  set instance(value) {
-    if (typeof this._instance === "undefined") {
-      this._instance = value
-      return void 0
-    }
-    throw "Firebase Instance Should Not Be Set Up Twice!"
-  }
-
-  googleAuth() {
+  getToken() {
     // Using a redirect.
-    firebase.auth().getRedirectResult().then(function(result) {
-      if (result.credential) {
-        // This gives you a Google Access Token.
-        const token = result.credential.accessToken;
-      }
-      const user = result.user;
-    });
+    return this.auth.currentUser.getToken()
+  }
 
+
+  /**
+   * Login using a redirect with Firebase to Google
+   * @returns {!firebase.Promise.<void>|firebase.Promise<any>}
+   */
+  googleAuth() {
     // Start a sign in process for an unauthenticated user.
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
-    firebase.auth().signInWithRedirect(provider);
+    return firebase.auth().signInWithRedirect(provider);
   }
 
 }
@@ -93,11 +87,12 @@ class FirebaseInstance {
 
 const firebaseApp = new FirebaseInstance()
 
+
 // aliases for ease of use
 const {database, auth} = firebaseApp
 
 /** export aliases to firebaseApp.database and auth */
-export {database, auth}
+export {database, auth, firebase}
 
 /**
  * This is our main export, and has the firebase app instance
