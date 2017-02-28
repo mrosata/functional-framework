@@ -16,7 +16,7 @@ export default (state = {}, action) => {
         case 'NAVIGATE':
             if (state.router.route == 'index') {
                 // page is now ready, initialize the calendar...
-                setTimeout(renderCalendar, 0);
+                setTimeout(renderCalendar, 100);
             }
 
         default:

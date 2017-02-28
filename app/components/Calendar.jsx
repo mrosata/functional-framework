@@ -23,5 +23,5 @@ export default ({state: {calendarEvents,route}}) => {
 jQuery(document).ready(function($) {
   // page is now ready, initialize the calendar...
   // Method call stems from our utils/calendar-utils.js file imported above
-  renderCalendar();
+  renderCalendar(false);
 });
