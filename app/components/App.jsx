@@ -6,7 +6,7 @@ import Example from './Example'
 import Calendar from './Calendar'
 import Room from './Admin/Room/Room'
 import Navigation from './Navigation'
-import Router, {Route, Link} from './Router'
+import {Route, Link} from './Router'
 
 
 /**
@@ -28,6 +28,7 @@ const AppComponent = ({state, dispatch}) => {
           <i className="fa fa-flag"/>
           </span>
       </Navigation>
+
 
 
       <section className="row">
