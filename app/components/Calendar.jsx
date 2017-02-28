@@ -1,6 +1,8 @@
 "use strict"
 import dom from '../utils/dom'
 import {log} from '../utils/logger'
+import renderCalendar from '../utils/calendar-utils'
+
 
 
 /**
@@ -8,28 +10,18 @@ import {log} from '../utils/logger'
  * @param  {array} calendarEvents - The events for calendar to display
  * @return {VNode}
  */
-export default ({state: {calendarEvents}}) => {
+export default ({state: {calendarEvents,route}}) => {
 
   return (
-    <section>
-      <div id="calendar" />
-    </section>
+      <section>
+        <div id="calendar" />
+      </section>
   )
 }
 
-
+// Loades the calendar if the main view is the calendar view when the document loads.
 jQuery(document).ready(function($) {
   // page is now ready, initialize the calendar...
-  $('#calendar').fullCalendar({
-    header: { right: 'month,agendaWeek,agendaDay' }, // buttons for switching between views
-
-    googleCalendarApiKey: 'AIzaSyBKBzjJk06ARQsT8l1GuQSDfyppuIJEBjg',
-    eventSources: [{
-      googleCalendarId: 'ao2er574u284sfcoig545dp4vc@group.calendar.google.com',
-      className: 'gcal-event'
-    }],
-    dayClick: function() {
-      log('a day has been clicked!');
-    }
-  })
+  // Method call stems from our utils/calendar-utils.js file imported above
+  renderCalendar();
 });
