@@ -56,7 +56,6 @@ function handleNameChange(event) {
 
 
 export default ({state}) => {
-    console.log('in room detail', state);
     tempRoom = state.currentRoom;
 
     if (state.currentRoom == null)
