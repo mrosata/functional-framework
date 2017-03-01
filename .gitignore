@@ -12,4 +12,5 @@ build/*
 !build/auth.js
 
 project-config.js
-yarn-lock
+yarn.lock
+yarn-error.log
