@@ -5,12 +5,13 @@ import { dispatch, dispatchAsync } from '../../../index'
 
 export default class Room {
 
-    constructor(number = '', name = '', description = '', active = true) {
+    constructor(number = '', name = '', description = '', active = true, min = 0, max = 0) {
         this.number = number
         this.name = name
         this.description = description
         this.active = active
         this.key = void (0)
+        this.capacity = { min: min, max: max }
     }
 
     /**
@@ -23,10 +24,6 @@ export default class Room {
         else
             return database.ref('rooms/' + key);
     }
-
-    // static ref(key){
-    //     return database.ref('rooms/' + key);
-    // }
 
     static loadRooms() {
 
@@ -50,10 +47,13 @@ export default class Room {
             throw "Room.fromFirebaseSnapshot expects child of 'rooms' snapshot"
         }
 
-        // Create the instance of Event using Firebase Snapshot
-        let {number, name, description, active} = snapshot.val()
-        const room = new Room(number, name, description, active)
+        console.log('snapshot.val()', snapshot.val());
 
+        // Create the instance of Event using Firebase Snapshot
+        let {number, name, description, capacity, active } = snapshot.val()
+        const room = new Room(number, name, description, active, capacity.min, capacity.max)
+
+        console.log('room', room);
 
         // Set the ID (//TODO: this might be better in constructor now that data is live)
         room.key = snapshot.getKey();
@@ -89,13 +89,14 @@ export default class Room {
             throw "Before Saving Room To Firebase Ensure It Has Proper Info"
         }
 
-        const {number, name, description, active} = room
+        const {number, name, description, capacity, active} = room
 
         //push and set at the same time
         let newRoom = roomsRef.push({
             number,
             name,
             description,
+            capacity,
             active
         });
 
@@ -111,7 +112,7 @@ export default class Room {
         var roomRef = Room.ref(room.key);
 
         //update firebase
-        roomRef.update({ number: room.number, name: room.name, description: room.description, active: room.active });
+        roomRef.update({ number: room.number, name: room.name, description: room.description, capacity: room.capacity, active: room.active });
 
         //TODO use async
 

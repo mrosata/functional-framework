@@ -34,11 +34,15 @@ function getFormValues() {
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;
     const active = document.getElementById('active').checked;
+    const min = document.getElementById('min-capacity').value;
+    const max = document.getElementById('max-capacity').value;
 
     tempRoom.number = number;
     tempRoom.name = name;
     tempRoom.description = description;
     tempRoom.active = active;
+    tempRoom.capacity.min = min;
+    tempRoom.capacity.max = max;
 }
 
 
@@ -60,6 +64,8 @@ export default ({state}) => {
 
     if (state.currentRoom == null)
         tempRoom = new Room();
+
+    console.log('tempRoom', tempRoom);
 
     function getButtons() {
         return (
@@ -99,6 +105,18 @@ export default ({state}) => {
                         <label htmlFor="description" className="col-2 col-form-label">Description</label>
                         <div className="col-6">
                             <input className="form-control" type="text" required value={tempRoom.description} placeholder="Description" onchange={handleNameChange} id="description" name="description" ></input>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="min-capacity" className="col-2 col-form-label">Minimum Capacity</label>
+                        <div className="col-6">
+                            <input className="form-control" type="text" required value={tempRoom.capacity.min} placeholder="Minimum Capacity" id="min-capacity" name="min-capacity" ></input>
+                        </div>
+                    </div>
+                    <div className="form-group row">
+                        <label htmlFor="max-capacity" className="col-2 col-form-label">Maximum Capacity</label>
+                        <div className="col-6">
+                            <input className="form-control" type="text" required value={tempRoom.capacity.max} placeholder="Maximum Capacity" id="max-capacity" name="max-capacity" ></input>
                         </div>
                     </div>
                     <div className="form-group row">
