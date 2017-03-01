@@ -5,7 +5,7 @@ import { dispatch, dispatchAsync } from '../../../index'
 
 export default class Room {
 
-    constructor(number, name, description, active = true) {
+    constructor(number = '', name = '', description = '', active = true) {
         this.number = number
         this.name = name
         this.description = description
@@ -31,6 +31,8 @@ export default class Room {
     static loadRooms() {
 
         //TODO should be async
+        Room.setCurrentRoom(null);
+
         dispatch({ type: 'CLEAR_ROOMS' });
 
         Room.ref().on('value', (snapshot) => {
@@ -124,6 +126,15 @@ export default class Room {
     }
 
     static save(room) {
+
+        //if key already exists then it is update not an add
+        if (room.key) {
+            Room.update(room);
+            return;
+        }
+
+
+
 
         //TODO this is is a test to add to memory only
         //var newRoom = Object.assign({}, room);

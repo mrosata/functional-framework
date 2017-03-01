@@ -5,7 +5,9 @@ import Room from './room-class.js'
 var tempRoom = new Room();
 
 
-function addRoom() {
+function saveRoom() {
+    getFormValues();
+
     //validate
     if (!Room.hasRoomInfo(tempRoom)) {
         console.log('missing room info');
@@ -19,7 +21,7 @@ function deleteRoom() {
     Room.delete(tempRoom);
 }
 
-function newRoom() {
+function clearRoom() {
     Room.setCurrentRoom(null);
 }
 
@@ -27,26 +29,29 @@ function loadRooms() {
     Room.loadRooms();
 }
 
-function updateRoom() {
-    //validate
-    if (!Room.hasRoomInfo(tempRoom)) {
-        console.log('missing room info');
-        throw "Before Saving Room To Firebase Ensure It Has Proper Info"
-    }
+function getFormValues() {
+    const number = +document.getElementById('number').value;
+    const name = document.getElementById('name').value;
+    const description = document.getElementById('description').value;
+    const active = document.getElementById('active').checked;
 
-    Room.update(tempRoom);
+    tempRoom.number = number;
+    tempRoom.name = name;
+    tempRoom.description = description;
+    tempRoom.active = active;
 }
 
 
+
 function handleNameChange(event) {
-    const target = event.target;
-    var value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    // const target = event.target;
+    // var value = target.type === 'checkbox' ? target.checked : target.value;
+    // const name = target.name;
 
-    if (name == 'number')
-        value = +value; //convert to number
+    // if (name == 'number')
+    //     value = +value; //convert to number
 
-    tempRoom[name] = value;
+    // tempRoom[name] = value;
 }
 
 
@@ -57,27 +62,15 @@ export default ({state}) => {
     if (state.currentRoom == null)
         tempRoom = new Room();
 
-    function getAddButton() {
-        if (state.currentRoom == null) {
-            return (
-                <div>
-                    <span className="btn btn-success" onclick={() => addRoom()}>Add Room</span>
-                    <span className="btn btn-success" onclick={() => loadRooms()}>Load Rooms</span>
-                </div>
-            );
-        }
-    }
-
-    function getOtherButtons() {
-        if (state.currentRoom != null) {
-            return (
-                <div>
-                    <span className="btn btn-success" onclick={() => updateRoom()}>Update Room</span>
-                    <span className="btn btn-danger" onclick={() => deleteRoom()}>Delete Room</span>
-                    <span className="btn btn-info" onclick={() => newRoom()}>New Room</span>
-                </div>
-            );
-        }
+    function getButtons() {
+        return (
+            <div>
+                <span className="btn btn-success" onclick={() => saveRoom()}>Save</span>
+                <span className="btn btn-danger" onclick={() => deleteRoom()}>Delete</span>
+                <span className="btn btn-info" onclick={() => clearRoom()}>Clear</span>
+                <span className="btn btn-success" onclick={() => loadRooms()}>Load</span>
+            </div>
+        );
     }
 
     return (
@@ -85,6 +78,12 @@ export default ({state}) => {
             <h3>Room Detail</h3>
             <div>
                 <form>
+                    <div className="form-group row">
+                        <label htmlFor="key" className="col-2 col-form-label">Key</label>
+                        <div className="col-10">
+                           <label htmlFor="key" className="col-10 col-form-label">{tempRoom.key}</label>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <label htmlFor="number" className="col-2 col-form-label">Room #</label>
                         <div className="col-10">
@@ -110,8 +109,7 @@ export default ({state}) => {
                         </div>
                     </div>
                 </form>
-                {getAddButton()}
-                {getOtherButtons()}
+                {getButtons()}
             </div>
         </div>
     );

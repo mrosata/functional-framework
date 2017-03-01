@@ -22,10 +22,13 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, { currentRoom: action.value });
 
     case 'CLEAR_ROOMS':
-      return Object.assign({}, state, { currentRoom: null, rooms:[] });
+      return Object.assign({}, state, { currentRoom: null, rooms: [] });
 
     case 'DELETE_ROOM':
-      return Object.assign({}, state, { currentRoom: null }, { rooms: state.rooms.filter((room) => room.key !== action.value.key) });
+      console.log('in DELETE_ROOM', state);
+      return state; //don't change anything
+
+    //return Object.assign({}, state, { currentRoom: null }, { rooms: state.rooms.filter((room) => room.key !== action.value.key) });
 
     case 'UPDATE_ROOM':
       //same as delete then add
@@ -37,7 +40,8 @@ export default (state = defaultState, action) => {
       return Object.assign({}, newState, { currentRoom: action.value }, { rooms: [...newState.rooms, action.value] });
 
     case 'ADD_ROOM':
-      return Object.assign({}, state, { currentRoom: action.value }, { rooms: [...state.rooms, action.value] });
+      console.log('in ADD_ROOM', state);
+      return Object.assign({}, state, { rooms: [...state.rooms, action.value] });
 
     case 'ADD_ROOM_CATCH':
       console.log('in ADD_ROOM_CATCH');
