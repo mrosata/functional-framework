@@ -4,7 +4,7 @@ import {reduce} from 'ramda'
 
 /* Create a styled logging system to show state as actions are dispatched */
 const LOGSTYLE = 'font-size: 1rem;font-weight:bold;color:'
-const logAction =log.bind(log, `%cAction: `, `${LOGSTYLE}rgb(179, 63, 132)`)
+const logAction = type => log.bind(log, `%cAction %c${type}: `, `${LOGSTYLE}rgb(179, 63, 132)`, `${LOGSTYLE}#444;background:#fff;padding:2px 5px`)
 const logCurrentState = log.bind(log, `%cState: `, `${LOGSTYLE}rgb(177, 116, 45)`)
 const logNextState = log.bind(log, `%cNext State: `, `${LOGSTYLE}rgb(53, 69, 180)`)
 
@@ -45,7 +45,7 @@ export function createStore(reducer, state) {
     isDispatching = true
 
     try {
-      logAction(action)
+      logAction(action.type)(action)
       logCurrentState(currentState)
       // 1. Get the new state.
       const nextState = reducer(currentState, action)

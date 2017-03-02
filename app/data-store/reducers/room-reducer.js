@@ -1,6 +1,4 @@
-
-
-
+import R from 'ramda';
 
 
 /**
@@ -19,32 +17,34 @@ export default (state = defaultState, action) => {
   switch (action.type) {
 
     case 'CURRENT_ROOM':
-      return Object.assign({}, state, { currentRoom: action.value });
+      return Object.assign({}, state, {currentRoom: action.value});
 
     case 'CLEAR_ROOMS':
-      return Object.assign({}, state, { currentRoom: null, rooms:[] });
+      return Object.assign({}, state, {currentRoom: null, rooms: []});
 
     case 'DELETE_ROOM':
+      //return state; //don't change anything
       return Object.assign({}, state, { currentRoom: null }, { rooms: state.rooms.filter((room) => room.key !== action.value.key) });
 
     case 'UPDATE_ROOM':
       //same as delete then add
 
       //delete
-      var newState = Object.assign({}, state, { currentRoom: null }, { rooms: state.rooms.filter((room) => room.key !== action.value.key) });
+      var newState = Object.assign({}, state, {currentRoom: null}, {rooms: state.rooms.filter((room) => room.key !== action.value.key)});
 
       //add new item
-      return Object.assign({}, newState, { currentRoom: action.value }, { rooms: [...newState.rooms, action.value] });
+      return Object.assign({}, newState, {currentRoom: action.value}, {rooms: [...newState.rooms, action.value]});
 
     case 'ADD_ROOM':
-      return Object.assign({}, state, { currentRoom: action.value }, { rooms: [...state.rooms, action.value] });
+      const uniqueRoomList = R.uniqBy(R.prop('key'), [...state.rooms, action.value]);
+      return Object.assign({}, state, {rooms: uniqueRoomList});
 
     case 'ADD_ROOM_CATCH':
-      console.log('in ADD_ROOM_CATCH');
       return state;
 
     case 'ADD_ROOM_RESOLVE':
-      return Object.assign({}, state, { currentRoom: action.value }, { rooms: [...state.rooms, action.value] });
+      return state;
+      //return Object.assign({}, state, {currentRoom: action.value}, {rooms: [...state.rooms, action.value]});
 
 
     default:
