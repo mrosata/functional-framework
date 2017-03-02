@@ -6,42 +6,16 @@ import { dispatch, dispatchAsync } from '../../../index'
 import Room from './room-class.js'
 
 
-// Room.ref().on('value', (snapshot) => {
-//     log('Room Data From Firebase -> ', snapshot.exportVal())
-// })
-
-// function getRoomsFromFirebase() {
-//     // Get the rooms from firebase
-//     return new Promise((resolve, reject) => {
-//         return Room.ref().on('value', (snapshot) => {
-//             // map the rooms from firebase snapshot into Room class instances
-//             try {
-//                 let rooms = []
-//                 snapshot.forEach(snap => {
-
-//                     rooms.push(Room.fromFirebaseSnapshot(snap))
-//                 })
-
-//                 return resolve(rooms)
-//             }
-//             catch (e) { return reject(e) }
-
-//         })
-//     })
-// }
-
-
-
-
-
-
-export default ({state}) => {
+export default ({state, dispatch}) => {
 
     function editRoom(key) {
         var room = state.rooms.find(x => x.key === key);
         Room.setCurrentRoom(room);
     }
 
+    //TODO why can't I do this?  Where would be the best place to do this?
+    // if(state.rooms.length == 0)
+    //     Room.loadRooms();
 
     function getTable() {
         if (state.rooms.length > 0) {

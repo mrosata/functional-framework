@@ -46,19 +46,6 @@ function getFormValues() {
 }
 
 
-
-function handleNameChange(event) {
-    // const target = event.target;
-    // var value = target.type === 'checkbox' ? target.checked : target.value;
-    // const name = target.name;
-
-    // if (name == 'number')
-    //     value = +value; //convert to number
-
-    // tempRoom[name] = value;
-}
-
-
 export default ({state}) => {
     tempRoom = state.currentRoom;
 
@@ -67,10 +54,9 @@ export default ({state}) => {
 
     //change button visibility based on whether or not user is logged in
     let saveClass = 'btn btn-success';
-    let deleteClass = 'btn btn-danger'; 
+    let deleteClass = 'btn btn-danger';
 
-    if(!state.auth)
-    {
+    if (!state.auth) {
         saveClass += ' hide';
         deleteClass += ' hide';
     }
@@ -90,47 +76,48 @@ export default ({state}) => {
         <div>
             <h3>Room Detail</h3>
             <div>
-                <form>
-                    <div className="form-group row">
-                        <label htmlFor="key" className="col-2 col-form-label">Key</label>
-                        <div className="col-10">
-                            <label htmlFor="key" className="col-10 col-form-label">{tempRoom.key}</label>
+                <form className="form-horizontal">
+                    <div className="form-group">
+                        <label htmlFor="key" className="control-label col-sm-2">Key</label>
+                        <div className="col-sm-10">
+                            <label htmlFor="key" className="control-label">{tempRoom.key}</label>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="number" className="col-2 col-form-label">Room #</label>
-                        <div className="col-10">
-                            <input className="form-control" type="text" required="true" value={tempRoom.number} placeholder="Room Number" onchange={handleNameChange} id="number" name="number"></input>
+                    <div className="form-group">
+                        <label htmlFor="number" className="control-label col-sm-2">Room #</label>
+                        <div className="col-sm-1">
+                            <input className="form-control" type="text" required="true" value={tempRoom.number} id="number" name="number"></input>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="name" className="col-2 col-form-label">Room Name</label>
-                        <div className="col-6">
-                            <input className="form-control" type="text" required value={tempRoom.name} placeholder="Room Name" onchange={handleNameChange} id="name" name="name"></input>
+                    <div className="form-group">
+                        <label htmlFor="name" className="control-label col-sm-2">Room Name</label>
+                        <div className="col-sm-6">
+                            <input className="form-control" type="text" required value={tempRoom.name} id="name" name="name"></input>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="description" className="col-2 col-form-label">Description</label>
-                        <div className="col-6">
-                            <input className="form-control" type="text" required value={tempRoom.description} placeholder="Description" onchange={handleNameChange} id="description" name="description" ></input>
+                    <div className="form-group">
+                        <label htmlFor="description" className="control-label col-sm-2">Description</label>
+                        <div className="col-sm-6">
+                            <input className="form-control" type="text" required value={tempRoom.description} id="description" name="description" ></input>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="min-capacity" className="col-2 col-form-label">Minimum Capacity</label>
-                        <div className="col-6">
+                    <div className="form-group">
+                        <label htmlFor="min-capacity" className="control-label col-sm-2">Minimum Capacity</label>
+                        <div className="col-sm-1">
                             <input className="form-control" type="text" required value={tempRoom.capacity.min} placeholder="Minimum Capacity" id="min-capacity" name="min-capacity" ></input>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="max-capacity" className="col-2 col-form-label">Maximum Capacity</label>
-                        <div className="col-6">
+                    <div className="form-group">
+                        <label htmlFor="max-capacity" className="control-label col-sm-2">Maximum Capacity</label>
+                        <div className="col-sm-1">
                             <input className="form-control" type="text" required value={tempRoom.capacity.max} placeholder="Maximum Capacity" id="max-capacity" name="max-capacity" ></input>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="active" className="col-2 col-form-label">Active</label>
-                        <div className="col-6">
-                            <input className="form-control" type="checkbox" checked={tempRoom.active} placeholder="Active" onchange={handleNameChange} id="active" name="active"></input>
+                    <div className="form-group">
+                        <div className="col-sm-offset-2 col-sm-10">
+                            <div className="checkbox">
+                                <label><input type="checkbox" checked={tempRoom.active} id="active" name="active"></input> Active</label>
+                            </div>
                         </div>
                     </div>
                 </form>
