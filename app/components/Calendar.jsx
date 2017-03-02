@@ -2,7 +2,6 @@
 import dom from '../utils/dom'
 import {log} from '../utils/logger'
 import {renderCalendar,populateGoogleDates} from '../utils/calendar-utils'
-import ToggleGcal from './ToggleGcals'
 
 
 
@@ -15,7 +14,6 @@ export default ({state: {calendarEvents,route}}) => {
 
   return (
       <section>
-        <ToggleGcal> </ToggleGcal>
         <div id="calendar" />
       </section>
   )
