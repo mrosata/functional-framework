@@ -64,10 +64,8 @@ function isSource(newSource) {
 export const populateGoogleDates = function(sources){
     sources.forEach((source) => {
         if(!isSource(source)){
-            console.log('I am source', source);
             $('#calendar').fullCalendar( 'addEventSource', source );
         }
-        console.log('I am source rejected', source);
     });
 
 };
