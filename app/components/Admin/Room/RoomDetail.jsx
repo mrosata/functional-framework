@@ -65,13 +65,21 @@ export default ({state}) => {
     if (state.currentRoom == null)
         tempRoom = new Room();
 
-    console.log('tempRoom', tempRoom);
+    //change button visibility based on whether or not user is logged in
+    let saveClass = 'btn btn-success';
+    let deleteClass = 'btn btn-danger'; 
+
+    if(!state.auth)
+    {
+        saveClass += ' hide';
+        deleteClass += ' hide';
+    }
 
     function getButtons() {
         return (
             <div>
-                <span className="btn btn-success" onclick={() => saveRoom()}>Save</span>
-                <span className="btn btn-danger" onclick={() => deleteRoom()}>Delete</span>
+                <span className={saveClass} onclick={() => saveRoom()}>Save</span>
+                <span className={deleteClass} onclick={() => deleteRoom()}>Delete</span>
                 <span className="btn btn-info" onclick={() => clearRoom()}>Clear</span>
                 <span className="btn btn-success" onclick={() => loadRooms()}>Load</span>
             </div>
@@ -86,7 +94,7 @@ export default ({state}) => {
                     <div className="form-group row">
                         <label htmlFor="key" className="col-2 col-form-label">Key</label>
                         <div className="col-10">
-                           <label htmlFor="key" className="col-10 col-form-label">{tempRoom.key}</label>
+                            <label htmlFor="key" className="col-10 col-form-label">{tempRoom.key}</label>
                         </div>
                     </div>
                     <div className="form-group row">
