@@ -55,6 +55,15 @@ class BaseField {
     }
   }
 
+  /**
+   * Make sure inputs that are numbers get formatted as numbers.
+   * @param inputValue
+   * @returns {number}
+   */
+  format(inputValue) {
+    return toLower(this.type) === "number" ? +inputValue : inputValue;
+  }
+
   constructor({
     name, id, type:inputType, defaultValue, className, errorClass, errorMsg, eventType, willDispatch, validation = () => true}) {
 
@@ -74,7 +83,7 @@ class BaseField {
   }
 
   get value() {
-    return isNil(this._value) ? this.defaultValue : this._value;
+    return isNil(this._value) ? this.defaultValue : this.format(this._value);
   }
 
   set value(value) {
@@ -152,6 +161,19 @@ class Field extends BaseField {
     if (this.willDispatch) {
       dispatch({type: toUpper(this.eventType), value: value})
     }
+  }
+
+  condDispatch(eventTypeSuccess, eventTypeFailure = 'FIELD_INVALID', returnValue) {
+    let dispatchedEvent;
+    if (this.isValid) {
+      const eventType = eventTypeSuccess ? eventTypeSuccess : this.eventType;
+      dispatchedEvent = dispatch({type: eventType, value: this.format(this._value)});
+    }
+    else {
+      dispatchedEvent = dispatch({type: eventTypeFailure, value: this.format(this._value)});
+    }
+    // Returns the value of input.. or the optional returnValue
+    return isNil(returnValue) ? dispatchedEvent : false;
   }
 
 }

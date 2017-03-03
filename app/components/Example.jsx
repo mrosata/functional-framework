@@ -44,12 +44,22 @@ const ExampleComponent = ({state: {balance}}) => {
   // uncomment line below, it's already set
   // log(`balance -> ${balance}`)
 
+  /**
+   * IT IS GOOD TO KNOW:
+   *     'BANK_SUBMIT_INVALID', 'WITHDRAW_INVALID' AND 'NOT_HANDLED_BUT_NEEDED'
+   *     are all unhandled dispatches. The reason they are needed is that they
+   *     updated the Field when it is invalid.
+   *        -- reason: in order to re-render field showing validation message
+   *                   this component needs to re-render, so something, anything,
+   *                   it doesn't matter really, has to be dispatched to show
+   *                   validation markup.
+   */
 
   return (
     <div>
       {/*  Sending Action Up Into Redux-ish (see data-store/reducers.js) */}
 
-      <form className="form">
+      <form className="form" onsubmit={()=>NumberInput.condDispatch('DEPOSIT', 'BANK_SUBMIT_INVALID', false)}>
         <legend>Deposit or Withdraw from the Bank.</legend>
         <h4 className="label"> balance: {balance}</h4>
 
@@ -65,7 +75,7 @@ const ExampleComponent = ({state: {balance}}) => {
           <span className="btn btn-success fa fa-arrow-circle-o-up"
                 onclick={bankTransaction('DEPOSIT', NumberInput)}> &nbsp; DEPOSIT</span>
           <span className="btn btn-danger fa fa-arrow-circle-down"
-                onclick={bankTransaction('WITHDRAW', NumberInput)}> &nbsp; WITHDRAW</span>
+                onclick={() => NumberInput.condDispatch('WITHDRAW', 'WITHDRAW_INVALID')}> &nbsp; WITHDRAW</span>
         </div>
 
       </form>
