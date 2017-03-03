@@ -32,7 +32,8 @@ export default class Room {
 
         dispatch({ type: 'CLEAR_ROOMS' });
 
-        Room.ref().on('value', (snapshot) => {
+        //use once instead of on to only get initial snapshot
+        Room.ref().once('value', (snapshot) => {
             snapshot.forEach(snap => {
                 var room = Room.fromFirebaseSnapshot(snap);
                 dispatch({ type: 'ADD_ROOM', value: room });

@@ -43,8 +43,8 @@ export default (state = defaultState, action) => {
       return state;
 
     case 'ADD_ROOM_RESOLVE':
-      return state;
-      //return Object.assign({}, state, {currentRoom: action.value}, {rooms: [...state.rooms, action.value]});
+      //return state;
+      return Object.assign({}, state, {currentRoom: action.value}, {rooms: [...state.rooms, action.value]});
 
 
     default:
