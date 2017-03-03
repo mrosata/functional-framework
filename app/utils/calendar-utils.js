@@ -9,39 +9,64 @@
  *
  * */
 
-function renderCalendar(bool = true) {
-    if (bool){
-        let succeed = false;
-        while (succeed == false) {
-            let ele = $('#calendar');
-            if (ele.length > 0) {
-                succeed = true;
-                $('#calendar').fullCalendar({
-                    header: {
-                        right: 'month,agendaWeek' ,
-                        left: 'prev,next',
-                        center: 'title'
-                    }, // buttons for switching between views
-
-                    dayClick: function () {
-                        log('a day has been clicked!');
-                    }
-                });
-            }
-        }
+export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
+    if (timeout > maxTimeout) {
         return;
     }
+    const $calendar = $('#calendar');
+    if (!$calendar.length){
+        timeout++;
+        return setTimeout(renderCalendar(timeout), timeout);
+    }
+
     $('#calendar').fullCalendar({
         header: {
-            right: 'month,agendaWeek',
+            right: 'month,agendaWeek' ,
             left: 'prev,next',
             center: 'title'
         }, // buttons for switching between views
-
+        googleCalendarApiKey: 'AIzaSyBF391zC2S8su_r_-zFARAoWo1ekRsgcZE',
         dayClick: function () {
             log('a day has been clicked!');
         }
     });
-    return;
+
+    let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
+        color: 'yellow',
+        textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
+        color: 'red',
+        textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
+        color: 'blue',
+        textColor: 'black'}];
+
+    populateGoogleDates(sources);
+};
+//check if resource is already added to calendar
+function isSource(newSource) {
+    let sources = $('#calendar').fullCalendar('getEventSources');
+    let calExists = false;
+
+    if (sources.length > 0) {
+
+        sources.forEach((source) => {
+            if(newSource.googleCalendarId === source.googleCalendarId){
+                calExists = true;
+            }
+        });
+
+        return calExists;
+    }
+    return calExists;
 }
-export default renderCalendar
+
+
+
+export const populateGoogleDates = function(sources){
+    sources.forEach((source) => {
+        if(!isSource(source)){
+            $('#calendar').fullCalendar( 'addEventSource', source );
+        }
+    });
+
+};
+export default { renderCalendar , populateGoogleDates}

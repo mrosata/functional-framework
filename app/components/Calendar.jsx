@@ -1,7 +1,7 @@
 "use strict"
 import dom from '../utils/dom'
 import {log} from '../utils/logger'
-import renderCalendar from '../utils/calendar-utils'
+import {renderCalendar,populateGoogleDates} from '../utils/calendar-utils'
 
 
 
@@ -23,5 +23,5 @@ export default ({state: {calendarEvents,route}}) => {
 jQuery(document).ready(function($) {
   // page is now ready, initialize the calendar...
   // Method call stems from our utils/calendar-utils.js file imported above
-  renderCalendar(false);
+  renderCalendar();
 });

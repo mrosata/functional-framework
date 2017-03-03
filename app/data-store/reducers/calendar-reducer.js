@@ -1,7 +1,8 @@
 /**
  * Created by markgrover on 2/27/17.
  */
-import renderCalendar from '../../utils/calendar-utils'
+import {dispatch} from '../../index'
+import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
 /**
  * This Reducer is for the Calendar and any actions that stem from its views.
  *
@@ -16,8 +17,13 @@ export default (state = {}, action) => {
         case 'NAVIGATE':
             if (state.router.route == 'index') {
                 // page is now ready, initialize the calendar...
-                setTimeout(renderCalendar, 100);
+                setTimeout(() => {
+                    renderCalendar();
+                },100);
+
             }
+            return state;
+
 
         default:
             // @desc Always have a default to return state object
