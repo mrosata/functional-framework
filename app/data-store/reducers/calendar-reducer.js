@@ -2,7 +2,7 @@
  * Created by markgrover on 2/27/17.
  */
 import {dispatch} from '../../index'
-import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
+import {renderCalendar,populateGoogleDates, toggleCalendars} from '../../utils/calendar-utils'
 /**
  * This Reducer is for the Calendar and any actions that stem from its views.
  *
@@ -24,6 +24,26 @@ export default (state = {}, action) => {
             }
             return state;
 
+        case 'TOGGLEROOM1':
+            //alert(action.value.visible);
+            Object.assign({}, state, state.sources.room1.visible = !action.value.visible );
+            toggleCalendars(action.value,action.value.visible);
+            //alert(action.value.visible);
+            return state;
+
+        case 'TOGGLEROOM2':
+            console.log(action.value.visible);
+            Object.assign({}, state, state.sources.room2.visible = !action.value.visible );
+            toggleCalendars(action.value,action.value.visible);
+            console.log(action.value.visible);
+            return state;
+
+        case 'TOGGLEROOM3':
+            console.log(action.value.visible);
+            Object.assign({}, state, state.sources.room3.visible = !action.value.visible );
+            toggleCalendars(action.value,action.value.visible);
+            console.log(action.value.visible);
+            return state;
 
         default:
             // @desc Always have a default to return state object

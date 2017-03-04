@@ -1,7 +1,9 @@
 "use strict"
-import dom from '../utils/dom'
-import {log} from '../utils/logger'
-import {renderCalendar,populateGoogleDates} from '../utils/calendar-utils'
+import dom from '../../utils/dom'
+import {log} from '../../utils/logger'
+import ToggleCalendar from 'ToggleCalendars'
+
+import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
 
 
 
@@ -10,11 +12,13 @@ import {renderCalendar,populateGoogleDates} from '../utils/calendar-utils'
  * @param  {array} calendarEvents - The events for calendar to display
  * @return {VNode}
  */
-export default ({state: {calendarEvents,route}}) => {
-
+export default ({state: {sources,calendarEvents,route}}) => {
+console.log(sources);
   return (
       <section>
+        <ToggleCalendar state={sources}></ToggleCalendar>
         <div id="calendar" />
+
       </section>
   )
 }
@@ -23,5 +27,6 @@ export default ({state: {calendarEvents,route}}) => {
 jQuery(document).ready(function($) {
   // page is now ready, initialize the calendar...
   // Method call stems from our utils/calendar-utils.js file imported above
+
   renderCalendar();
 });

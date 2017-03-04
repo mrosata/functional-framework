@@ -20,6 +20,11 @@ export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
     }
 
     $('#calendar').fullCalendar({
+        //customButtons: {
+        //    myCustomButton: {
+        //        text: 'custom!'
+        //    }
+        //},
         header: {
             right: 'month,agendaWeek' ,
             left: 'prev,next',
@@ -32,11 +37,11 @@ export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
     });
 
     let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
-        color: 'yellow',
+        color: '#ccceee',
         textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
-        color: 'red',
+        color: '#ccddee',
         textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
-        color: 'blue',
+        color: '#BADA55',
         textColor: 'black'}];
 
     populateGoogleDates(sources);
@@ -59,8 +64,36 @@ function isSource(newSource) {
     return calExists;
 }
 
+// add new event source
+function removeEventSource(source){
+    if(isSource){
+        let calId = {googleCalendarId: source.calendarId};
+        $('#calendar').fullCalendar('removeEventSource', calId);
+    }
 
+}
 
+// remove event source
+function addEventSource(source){
+    if(isSource){
+        let calId = {
+            googleCalendarId: source.calendarId,
+            color: source.color,
+            textColor: source.textColor
+        };
+        $('#calendar').fullCalendar('addEventSource', calId);
+    }
+
+}
+
+// toggleCalendars
+export function toggleCalendars(source,visible){
+    if(!visible){
+        removeEventSource(source);
+    } else {
+        addEventSource(source);
+    }
+}
 export const populateGoogleDates = function(sources){
     sources.forEach((source) => {
         if(!isSource(source)){
@@ -69,4 +102,4 @@ export const populateGoogleDates = function(sources){
     });
 
 };
-export default { renderCalendar , populateGoogleDates}
+export default { renderCalendar , populateGoogleDates, toggleCalendars}
