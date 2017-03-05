@@ -13,52 +13,50 @@ export const defaultState = {
   currentRoom:    null,
   router:         getInitialRouter(window.location),
   auth:           null,
-  sources:
-  [
+  sources:[
+    {
+      room: 1,
+      name: 'The Library',
+      calendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
+      visible: true,
+      color: '#ccceee',
+      textColor: 'black',
+      added: false
+    }
+    ,
 
-      {
-        room: 1,
-        name: 'The Library',
-        calendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
-        visible: true,
-        color: '#ccceee',
-        textColor: 'black',
-        added: false
-      }
-      ,
+    {
+      room: 2,
+      name: 'The Cesar Chavez Room',
+      calendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
+      visible: true,
+      color: '#ccddee',
+      textColor: 'black',
+      added: false
+    }
+    ,
 
-      {
-        room: 2,
-        name: 'The Cesar Chavez Room',
-        calendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
-        visible: true,
-        color: '#ccddee',
-        textColor: 'black',
-        added: false
-      }
-      ,
+    {
+      room: 3,
+      name: 'The Rosa Parks Room',
+      calendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
+      visible: true,
+      color: '#BADA55',
+      textColor: 'black',
+      added: false
+    }
+    ,
 
-      {
-        room: 3,
-        name: 'The Rosa Parks Room',
-        calendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
-        visible: true,
-        color: '#BADA55',
-        textColor: 'black',
-        added: false
-      }
-      ,
-
-      {
-        room: 4,
-        name: 'Nelson Mandela Room',
-        calendarId: 't0gnqindnl5hfu7noj4iu3dvek@group.calendar.google.com',
-        visible: true,
-        color: '#eeeDCC',
-        textColor: 'black',
-        added: false
-      }
-    ]
+    {
+      room: 4,
+      name: 'Nelson Mandela Room',
+      calendarId: 't0gnqindnl5hfu7noj4iu3dvek@group.calendar.google.com',
+      visible: true,
+      color: '#eeeDCC',
+      textColor: 'black',
+      added: false
+    }
+  ]
 }
 
 /**

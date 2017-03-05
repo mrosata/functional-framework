@@ -7,6 +7,8 @@
  * once the Jquery call returns an array with a length grater then 0
  * we can run our render function salfely and set our flag to true.
  *
+ *  sources = [{source},{source}...]
+ *
  * */
 
 export const renderCalendar = function(sources = null,timeout = 1, maxTimeout = 3000) {
@@ -39,7 +41,16 @@ export const renderCalendar = function(sources = null,timeout = 1, maxTimeout = 
 
     populateGoogleDates(sources);
 };
-//check if resource is already added to calendar
+/*
+*  check if resource is already added to calendar
+*
+*  newSource is the object up for comparison
+*
+*  returns (BOOL)
+*
+*  true is in currentSource Array
+*  false if Not
+* */
 function isSource(newSource) {
     let sources = $('#calendar').fullCalendar('getEventSources');
     let calExists = false;
@@ -56,8 +67,13 @@ function isSource(newSource) {
     }
     return calExists;
 }
-
-// add new event source
+/*
+*  add new event source
+*
+*  source is single source object from source array
+*
+*
+* */
 function removeEventSource(source){
     if((source.visible === false) && (source.added === true)){
         let calId = {googleCalendarId: source.calendarId};
@@ -120,7 +136,7 @@ export const renderEventsOnNavigate = function(sources){
 
     });
     displayCalendarFilter();
-}
+};
 
 // Toggle Button Display
 export const displayCalendarFilter = function (){
@@ -148,5 +164,5 @@ export const displayCalendarFilter = function (){
         onLabel: '<span class="glyphicon glyphicon-ok">',
         baseCls: 'btn btn-xs'
     });
-}
+};
 export default { renderCalendar , populateGoogleDates, toggleCalendars}
