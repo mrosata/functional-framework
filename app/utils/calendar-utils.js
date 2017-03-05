@@ -9,7 +9,8 @@
  *
  * */
 
-export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
+export const renderCalendar = function(sources = null,timeout = 1, maxTimeout = 3000) {
+
     if (timeout > maxTimeout) {
         return;
     }
@@ -36,13 +37,13 @@ export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
         }
     });
 
-    let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
-        color: '#ccceee',
-        textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
-        color: '#ccddee',
-        textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
-        color: '#BADA55',
-        textColor: 'black'}];
+    //let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
+    //    color: '#ccceee',
+    //    textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
+    //    color: '#ccddee',
+    //    textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
+    //    color: '#BADA55',
+    //    textColor: 'black'}];
 
     populateGoogleDates(sources);
 };
@@ -54,7 +55,7 @@ function isSource(newSource) {
     if (sources.length > 0) {
 
         sources.forEach((source) => {
-            if(newSource.googleCalendarId === source.googleCalendarId){
+            if(newSource.calendarId === source.calendarId){
                 calExists = true;
             }
         });
@@ -66,28 +67,32 @@ function isSource(newSource) {
 
 // add new event source
 function removeEventSource(source){
-    if(isSource){
+    if((source.visible === false) && (source.added === true)){
         let calId = {googleCalendarId: source.calendarId};
         $('#calendar').fullCalendar('removeEventSource', calId);
+        source.added = false;
     }
 
 }
 
 // remove event source
 function addEventSource(source){
-    if(isSource){
+    if(((source.visible === true) && (source.added === false))){
+        console.log('true true');
         let calId = {
             googleCalendarId: source.calendarId,
             color: source.color,
             textColor: source.textColor
         };
         $('#calendar').fullCalendar('addEventSource', calId);
+        source.added = true;
     }
 
 }
 
 // toggleCalendars
 export function toggleCalendars(source,visible){
+
     if(!visible){
         removeEventSource(source);
     } else {
@@ -96,8 +101,14 @@ export function toggleCalendars(source,visible){
 }
 export const populateGoogleDates = function(sources){
     sources.forEach((source) => {
-        if(!isSource(source)){
-            $('#calendar').fullCalendar( 'addEventSource', source );
+        if(((!isSource(source)) && (source.visible === true) && (source.added === false))){
+        let calId = {
+            googleCalendarId: source.calendarId,
+            color: source.color,
+            textColor: source.textColor
+        };
+        $('#calendar').fullCalendar('addEventSource', calId);
+        source.added = true;
         }
     });
 

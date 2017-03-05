@@ -16,33 +16,55 @@ export default (state = {}, action) => {
 
         case 'NAVIGATE':
             if (state.router.route == 'index') {
-                // page is now ready, initialize the calendar...
-                setTimeout(() => {
-                    renderCalendar();
-                },100);
+                setTimeout(renderCalendar,1,state.sources);
+                setTimeout(myLog,1,state.sources);
 
+                function myLog(sources){
+                    sources.forEach((source) => {
+                        if(source.added === true){
+                            let calId = {
+                                googleCalendarId: source.calendarId,
+                                color: source.color,
+                                textColor: source.textColor
+                            };
+                            $('#calendar').fullCalendar('addEventSource', calId);
+                            $('#input-1').checkboxpicker({
+                                html: true,
+                                offLabel: '<span class="glyphicon glyphicon-remove">',
+                                onLabel: '<span class="glyphicon glyphicon-ok">',
+                                baseCls: 'btn btn-xs'
+                            });
+                            $('#input-2').checkboxpicker({
+                                html: true,
+                                offLabel: '<span class="glyphicon glyphicon-remove">',
+                                onLabel: '<span class="glyphicon glyphicon-ok">',
+                                baseCls: 'btn btn-xs'
+                            });
+                            $('#input-3').checkboxpicker({
+                                html: true,
+                                offLabel: '<span class="glyphicon glyphicon-remove">',
+                                onLabel: '<span class="glyphicon glyphicon-ok">',
+                                baseCls: 'btn btn-xs'
+                            });
+                        }
+                    })
+                }
             }
             return state;
 
         case 'TOGGLEROOM1':
-            //alert(action.value.visible);
-            Object.assign({}, state, state.sources.room1.visible = !action.value.visible );
+            Object.assign({}, state, state.sources[0].visible = !action.value.visible );
             toggleCalendars(action.value,action.value.visible);
-            //alert(action.value.visible);
             return state;
 
         case 'TOGGLEROOM2':
-            console.log(action.value.visible);
-            Object.assign({}, state, state.sources.room2.visible = !action.value.visible );
+            Object.assign({}, state, state.sources[1].visible = !action.value.visible );
             toggleCalendars(action.value,action.value.visible);
-            console.log(action.value.visible);
             return state;
 
         case 'TOGGLEROOM3':
-            console.log(action.value.visible);
-            Object.assign({}, state, state.sources.room3.visible = !action.value.visible );
+            Object.assign({}, state, state.sources[2].visible = !action.value.visible );
             toggleCalendars(action.value,action.value.visible);
-            console.log(action.value.visible);
             return state;
 
         default:

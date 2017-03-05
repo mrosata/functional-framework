@@ -17,11 +17,11 @@ const myDisp = dispatch;
 				<div className="form-inline">
 					<div className="toggle-wrapper">
 
-							<input id="input-1" type="checkbox" checked={state.room1.visible} onchange={sendalert(state.room1, myDisp)}/><span className="checkboxText">The Library</span>
+							<input id="input-1" type="checkbox" checked={state[0].visible} onchange={sendalert(state[0], myDisp)}/><span className="checkboxText">The Library</span>
 
-							<input id="input-2" type="checkbox" checked={state.room2.visible} onchange={sendalert(state.room2, myDisp)}/><span className="checkboxText">Cesar Chavez</span>
+							<input id="input-2" type="checkbox" checked={state[1].visible} onchange={sendalert(state[1], myDisp)}/><span className="checkboxText">Cesar Chavez</span>
 
-							<input id="input-3" type="checkbox" checked={state.room3.visible} onchange={sendalert(state.room3, myDisp)}/><span className="checkboxText">Rosa Parks</span>
+							<input id="input-3" type="checkbox" checked={state[2].visible} onchange={sendalert(state[2], myDisp)}/><span className="checkboxText">Rosa Parks</span>
 
 					</div>
 				</div>

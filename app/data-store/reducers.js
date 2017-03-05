@@ -14,37 +14,40 @@ export const defaultState = {
   router:         getInitialRouter(window.location),
   auth:           null,
   sources:
-  {
-    room1:
+  [
+
       {
         room: 1,
         name: 'The Library',
         calendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
         visible: true,
         color: '#ccceee',
-        textColor: 'black'
+        textColor: 'black',
+        added: false
       }
       ,
-    'room2':
+
       {
         room: 2,
         name: 'The Cesar Chavez Room',
         calendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
         visible: true,
         color: '#ccddee',
-        textColor: 'black'
+        textColor: 'black',
+        added: false
       }
       ,
-    'room3':
+
       {
         room: 3,
         name: 'The Rosa Parks Room',
         calendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
         visible: true,
         color: '#BADA55',
-        textColor: 'black'
+        textColor: 'black',
+        added: false
       }
-  }
+  ]
 }
 
 /**
