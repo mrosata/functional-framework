@@ -23,27 +23,9 @@ export default (state = {}, action) => {
 
         case 'TOGGLEROOM':
 
-          switch(action.value.room) {
-              case 1:
-                  Object.assign({}, state, state.sources[0].visible = !action.value.visible );
-                  toggleCalendars(action.value,action.value.visible);
-                  return state;
-              case 2:
-                  Object.assign({}, state, state.sources[1].visible = !action.value.visible );
-                  toggleCalendars(action.value,action.value.visible);
-                  return state;
-              case 3:
-                  Object.assign({}, state, state.sources[2].visible = !action.value.visible );
-                  toggleCalendars(action.value,action.value.visible);
-                  return state;
-
-              case 4:
-                  Object.assign({}, state, state.sources[3].visible = !action.value.visible );
-                  toggleCalendars(action.value,action.value.visible);
-                  return state;
-              default:
-                return state;
-          }
+            Object.assign({}, state, state.sources[action.value.room - 1].visible = !action.value.visible );
+            toggleCalendars(action.value,action.value.visible);
+            return state;
 
         default:
             // @desc Always have a default to return state object
