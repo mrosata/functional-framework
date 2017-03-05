@@ -47,7 +47,18 @@ export const defaultState = {
         textColor: 'black',
         added: false
       }
-  ]
+      ,
+
+      {
+        room: 4,
+        name: 'Nelson Mandela Room',
+        calendarId: 't0gnqindnl5hfu7noj4iu3dvek@group.calendar.google.com',
+        visible: true,
+        color: '#eeeDCC',
+        textColor: 'black',
+        added: false
+      }
+    ]
 }
 
 /**

@@ -2,7 +2,7 @@
 import dom from '../../utils/dom'
 import {log} from '../../utils/logger'
 import {dispatch} from '../../index'
-
+import {displayCalendarFilter} from '../../utils/calendar-utils'
 
 /**
  * Calendar Component
@@ -23,6 +23,8 @@ const myDisp = dispatch;
 
 							<input id="input-3" type="checkbox" checked={state[2].visible} onchange={sendalert(state[2], myDisp)}/><span className="checkboxText">Rosa Parks</span>
 
+							<input id="input-4" type="checkbox" checked={state[3].visible} onchange={sendalert(state[3], myDisp)}/><span className="checkboxText">Nelson Mandela</span>
+
 					</div>
 				</div>
 			</div>
@@ -30,31 +32,15 @@ const myDisp = dispatch;
 		</section>
 	)
 }
-jQuery(document).ready(function($) {
-	$('#input-1').checkboxpicker({
-		html: true,
-		offLabel: '<span class="glyphicon glyphicon-remove">',
-		onLabel: '<span class="glyphicon glyphicon-ok">',
-		baseCls: 'btn btn-xs'
-	});
-	$('#input-2').checkboxpicker({
-		html: true,
-		offLabel: '<span class="glyphicon glyphicon-remove">',
-		onLabel: '<span class="glyphicon glyphicon-ok">',
-		baseCls: 'btn btn-xs'
-	});
-	$('#input-3').checkboxpicker({
-		html: true,
-		offLabel: '<span class="glyphicon glyphicon-remove">',
-		onLabel: '<span class="glyphicon glyphicon-ok">',
-		baseCls: 'btn btn-xs'
-	});
-});
+
 
 function sendalert(room,dispatch) {
 	return () => {
 			dispatch({type: `TOGGLEROOM${room.room}`, value: room})
 		}
-	}
+}
+jQuery(document).ready(function($) {
+	displayCalendarFilter();
+});
 
 

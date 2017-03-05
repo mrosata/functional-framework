@@ -2,7 +2,7 @@
  * Created by markgrover on 2/27/17.
  */
 import {dispatch} from '../../index'
-import {renderCalendar,populateGoogleDates, toggleCalendars} from '../../utils/calendar-utils'
+import {renderCalendar,populateGoogleDates, toggleCalendars,renderEventsOnNavigate} from '../../utils/calendar-utils'
 /**
  * This Reducer is for the Calendar and any actions that stem from its views.
  *
@@ -17,38 +17,7 @@ export default (state = {}, action) => {
         case 'NAVIGATE':
             if (state.router.route == 'index') {
                 setTimeout(renderCalendar,1,state.sources);
-                setTimeout(myLog,1,state.sources);
-
-                function myLog(sources){
-                    sources.forEach((source) => {
-                        if(source.added === true){
-                            let calId = {
-                                googleCalendarId: source.calendarId,
-                                color: source.color,
-                                textColor: source.textColor
-                            };
-                            $('#calendar').fullCalendar('addEventSource', calId);
-                            $('#input-1').checkboxpicker({
-                                html: true,
-                                offLabel: '<span class="glyphicon glyphicon-remove">',
-                                onLabel: '<span class="glyphicon glyphicon-ok">',
-                                baseCls: 'btn btn-xs'
-                            });
-                            $('#input-2').checkboxpicker({
-                                html: true,
-                                offLabel: '<span class="glyphicon glyphicon-remove">',
-                                onLabel: '<span class="glyphicon glyphicon-ok">',
-                                baseCls: 'btn btn-xs'
-                            });
-                            $('#input-3').checkboxpicker({
-                                html: true,
-                                offLabel: '<span class="glyphicon glyphicon-remove">',
-                                onLabel: '<span class="glyphicon glyphicon-ok">',
-                                baseCls: 'btn btn-xs'
-                            });
-                        }
-                    })
-                }
+                setTimeout(renderEventsOnNavigate,1,state.sources);
             }
             return state;
 
@@ -64,6 +33,11 @@ export default (state = {}, action) => {
 
         case 'TOGGLEROOM3':
             Object.assign({}, state, state.sources[2].visible = !action.value.visible );
+            toggleCalendars(action.value,action.value.visible);
+            return state;
+
+        case 'TOGGLEROOM4':
+            Object.assign({}, state, state.sources[3].visible = !action.value.visible );
             toggleCalendars(action.value,action.value.visible);
             return state;
 

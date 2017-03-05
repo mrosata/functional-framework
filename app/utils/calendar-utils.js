@@ -37,14 +37,6 @@ export const renderCalendar = function(sources = null,timeout = 1, maxTimeout = 
         }
     });
 
-    //let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
-    //    color: '#ccceee',
-    //    textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
-    //    color: '#ccddee',
-    //    textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
-    //    color: '#BADA55',
-    //    textColor: 'black'}];
-
     populateGoogleDates(sources);
 };
 //check if resource is already added to calendar
@@ -113,4 +105,48 @@ export const populateGoogleDates = function(sources){
     });
 
 };
+// Render Events On Navigation
+export const renderEventsOnNavigate = function(sources){
+    sources.forEach((source) => {
+        if(source.added === true){
+            let calId = {
+                googleCalendarId: source.calendarId,
+                color: source.color,
+                textColor: source.textColor
+            };
+            $('#calendar').fullCalendar('addEventSource', calId);
+
+        }
+
+    });
+    displayCalendarFilter();
+}
+
+// Toggle Button Display
+export const displayCalendarFilter = function (){
+    $('#input-1').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-2').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-3').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-4').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+}
 export default { renderCalendar , populateGoogleDates, toggleCalendars}
