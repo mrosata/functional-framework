@@ -10,22 +10,45 @@ var tempRoom = new Room();
 const {is, isEmpty} = R;
 
 const isNonEmptyString = (value) => is(String, value) && !isEmpty(value)
-const isPositive = (value) => +value >= 0;
+const isNotNegative = (value) => +value >= 0;
+const isPositive = (value) => +value > 0;
+
+const RoomNumberInput = new Field({
+    name: 'number',
+    type: 'number',
+    errorMsg: 'Room number must be greater than zero!',
+    willDispatch: false,
+    validation: isPositive
+});
 
 const RoomNameInput = new Field({
     name: 'name',
     type: 'text',
-    errorMsg: 'Please enter a value for Room.',
+    errorMsg: 'Please enter a value for Room!',
     willDispatch: false,
     validation: isNonEmptyString
+});
+
+const RoomDescriptionInput = new Field({
+    name: 'description',
+    type: 'text',
+    willDispatch: false
 });
 
 const MinInput = new Field({
     name: 'min',
     type: 'number',
-    errorMsg: 'Minimum Capacity must be a number zero or greater.',
+    errorMsg: 'Minimum Capacity cannot be negative!',
     willDispatch: false,
-    validation: isPositive
+    validation: isNotNegative
+});
+
+const MaxInput = new Field({
+    name: 'max',
+    type: 'number',
+    errorMsg: 'Maximum Capacity cannot be negative!',
+    willDispatch: false,
+    validation: isNotNegative
 });
 
 
@@ -54,7 +77,7 @@ function loadRooms() {
 
 
 /**
- * Gets the values from the form and sets each controls value.  This will call validate function and set isValid boolean.
+ * Gets the values from the form and sets properties on tempRoom object
  */
 function getFormValues() {
     const number = +document.getElementById('number').value;
@@ -62,24 +85,23 @@ function getFormValues() {
     const description = document.getElementById('description').value;
     const active = document.getElementById('active').checked;
     const min = document.getElementById('min').value;
-    const max = document.getElementById('max-capacity').value;
-
-    RoomNameInput.value = name;
-    MinInput.value = min;
+    const max = document.getElementById('max').value;
 
     tempRoom.number = number;
     tempRoom.name = name;
     tempRoom.description = description;
     tempRoom.active = active;
-    tempRoom.capacity.min = min;
-    tempRoom.capacity.max = max;
+    tempRoom.capacity.min = +min;
+    tempRoom.capacity.max = +max;
+
+    Room.setCurrentRoom(tempRoom);
 }
 
 /**
  * Make sure all fields are valid before continuing with save.
  */
 function fieldsValid() {
-    if (!RoomNameInput.isValid || !MinInput.isValid) {
+    if (!RoomNumberInput.isValid || !RoomNameInput.isValid || !MinInput.isValid || !MaxInput.isValid) {
         dispatch({ type: 'NOT_HANDLED_BUT_NEEDED', value: '' })
         return false;
     }
@@ -95,14 +117,12 @@ export default ({state}) => {
         tempRoom = new Room();
     }
 
+    //setting value property will call each controls validate function and set its isValid property.
+    RoomNumberInput.value = tempRoom.number;
     RoomNameInput.value = tempRoom.name;
+    RoomDescriptionInput.value = tempRoom.description;
     MinInput.value = tempRoom.capacity.min;
-
-
-
-
-
-
+    MaxInput.value = tempRoom.capacity.max;
 
 
     //change button visibility based on whether or not user is logged in
@@ -112,17 +132,6 @@ export default ({state}) => {
     if (!state.auth) {
         saveClass += ' hide';
         deleteClass += ' hide';
-    }
-
-    function getButtons() {
-        return (
-            <div>
-                <span className={saveClass} onclick={() => saveRoom()}>Save</span>
-                <span className={deleteClass} onclick={() => deleteRoom()}>Delete</span>
-                <span className="btn btn-info" onclick={() => clearRoom()}>Clear</span>
-                <span className="btn btn-success" onclick={() => loadRooms()}>Load</span>
-            </div>
-        );
     }
 
     return (
@@ -138,9 +147,7 @@ export default ({state}) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="number" className="control-label col-sm-2">Room #</label>
-                        <div className="col-sm-6">
-                            <input className="form-control" type="text" required="true" value={tempRoom.number} id="number" name="number"></input>
-                        </div>
+                        {RoomNumberInput.jsx()}
                     </div>
                     <div className="form-group">
                         <label htmlFor="name" className="control-label col-sm-2">Room Name</label>
@@ -148,9 +155,7 @@ export default ({state}) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="control-label col-sm-2">Description</label>
-                        <div className="col-sm-6">
-                            <input className="form-control" type="text" required value={tempRoom.description} id="description" name="description" ></input>
-                        </div>
+                        {RoomDescriptionInput.jsx()}
                     </div>
                     <div className="form-group">
                         <label htmlFor="min-capacity" className="control-label col-sm-2">Minimum Capacity</label>
@@ -158,9 +163,7 @@ export default ({state}) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="max-capacity" className="control-label col-sm-2">Maximum Capacity</label>
-                        <div className="col-sm-6">
-                            <input className="form-control" type="text" required value={tempRoom.capacity.max} placeholder="Maximum Capacity" id="max-capacity" name="max-capacity" ></input>
-                        </div>
+                        {MaxInput.jsx()}
                     </div>
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-10">
@@ -170,7 +173,12 @@ export default ({state}) => {
                         </div>
                     </div>
                 </form>
-                {getButtons()}
+                <div>
+                    <span className={saveClass} onclick={() => saveRoom()}>Save</span>
+                    <span className={deleteClass} onclick={() => deleteRoom()}>Delete</span>
+                    <span className="btn btn-info" onclick={() => clearRoom()}>Clear</span>
+                    <span className="btn btn-success" onclick={() => loadRooms()}>Load</span>
+                </div>
             </div>
         </div>
     );

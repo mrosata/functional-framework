@@ -122,8 +122,11 @@ export default class Room {
 
     static delete(room) {
         //TODO use async
-        Room.ref(room.key).remove();
 
+        //pass undefined to Room.ref will delete all objects
+        if (room.key) {
+            Room.ref(room.key).remove();
+        }
         dispatch({ type: 'DELETE_ROOM', value: room })
     }
 
