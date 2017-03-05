@@ -86,7 +86,7 @@ function removeEventSource(source){
 // remove event source
 function addEventSource(source){
     if(((source.visible === true) && (source.added === false))){
-        console.log('true true');
+        //console.log('true true');
         let calId = {
             googleCalendarId: source.calendarId,
             color: source.color,
