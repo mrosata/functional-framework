@@ -3,7 +3,7 @@ import dom from '../utils/dom'
 
 import Footer from './Footer'
 import Example from './Example'
-import Calendar from './Calendar'
+import Calendar from './Calendar/Calendar'
 import Room from './Admin/Room/Room'
 import Navigation from './Navigation'
 import {Route, Link} from './Router'

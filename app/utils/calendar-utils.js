@@ -7,9 +7,12 @@
  * once the Jquery call returns an array with a length grater then 0
  * we can run our render function salfely and set our flag to true.
  *
+ *  sources = [{source},{source}...]
+ *
  * */
 
-export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
+export const renderCalendar = function(sources = null,timeout = 1, maxTimeout = 3000) {
+
     if (timeout > maxTimeout) {
         return;
     }
@@ -20,6 +23,11 @@ export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
     }
 
     $('#calendar').fullCalendar({
+        //customButtons: {
+        //    myCustomButton: {
+        //        text: 'custom!'
+        //    }
+        //},
         header: {
             right: 'month,agendaWeek' ,
             left: 'prev,next',
@@ -31,17 +39,18 @@ export const renderCalendar = function(timeout = 1, maxTimeout = 3000) {
         }
     });
 
-    let sources = [{googleCalendarId: 'bdnha1319u329g6gsr6rcksg6c@group.calendar.google.com',
-        color: 'yellow',
-        textColor: 'black' },{googleCalendarId: 'led1grg2f8jtbtdrks7hv125fo@group.calendar.google.com',
-        color: 'red',
-        textColor: 'black'},{googleCalendarId: '353tn8hvjnrtja3h21gbjgaigo@group.calendar.google.com',
-        color: 'blue',
-        textColor: 'black'}];
-
     populateGoogleDates(sources);
 };
-//check if resource is already added to calendar
+/*
+*  check if resource is already added to calendar
+*
+*  newSource is the object up for comparison
+*
+*  returns (BOOL)
+*
+*  true is in currentSource Array
+*  false if Not
+* */
 function isSource(newSource) {
     let sources = $('#calendar').fullCalendar('getEventSources');
     let calExists = false;
@@ -49,7 +58,7 @@ function isSource(newSource) {
     if (sources.length > 0) {
 
         sources.forEach((source) => {
-            if(newSource.googleCalendarId === source.googleCalendarId){
+            if(newSource.calendarId === source.calendarId){
                 calExists = true;
             }
         });
@@ -58,15 +67,111 @@ function isSource(newSource) {
     }
     return calExists;
 }
+/*
+*  add new event source
+*
+*  source is single source object from source array
+*
+*
+* */
+function removeEventSource(source){
+    if(!source.added){
+        let calId = {googleCalendarId: source.calendarId};
+        $('#calendar').fullCalendar('removeEventSource', calId);
+        //source.added = false;
+        toggleAddedProperty(source.room -1);
+   }
 
+}
 
+// remove event source
+function addEventSource(source){
+    if(source.added){
+        let calId = {
+            googleCalendarId: source.calendarId,
+            color: source.color,
+            textColor: source.textColor
+        };
+        $('#calendar').fullCalendar('addEventSource', calId);
+        //source.added = true; replaced with call to function to tie
+        // property change into the state.
+        toggleAddedProperty(source.room -1);
 
+    }
+
+}
+
+// toggle added Property
+function toggleAddedProperty(id){
+    return (id) => {
+        dispatch({type: 'SOURCETOGGLED', value: id})
+    }
+}
+
+// toggleCalendars
+export function toggleCalendars(source,visible){
+    if(!visible){
+        removeEventSource(source);
+    } else {
+        addEventSource(source);
+    }
+}
 export const populateGoogleDates = function(sources){
     sources.forEach((source) => {
-        if(!isSource(source)){
-            $('#calendar').fullCalendar( 'addEventSource', source );
+        if(((!isSource(source)) && (source.visible === true) && (source.added === false))){
+        let calId = {
+            googleCalendarId: source.calendarId,
+            color: source.color,
+            textColor: source.textColor
+        };
+        $('#calendar').fullCalendar('addEventSource', calId);
+        source.added = true;
         }
     });
 
 };
-export default { renderCalendar , populateGoogleDates}
+// Render Events On Navigation
+export const renderEventsOnNavigate = function(sources){
+    sources.forEach((source) => {
+        if(source.added === false && source.visible === true){
+            let calId = {
+                googleCalendarId: source.calendarId,
+                color: source.color,
+                textColor: source.textColor
+            };
+            $('#calendar').fullCalendar('addEventSource', calId);
+
+        }
+
+    });
+    displayCalendarFilter();
+};
+
+// Toggle Button Display
+export const displayCalendarFilter = function (){
+    $('#input-1').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-2').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-3').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+    $('#input-4').checkboxpicker({
+        html: true,
+        offLabel: '<span class="glyphicon glyphicon-remove">',
+        onLabel: '<span class="glyphicon glyphicon-ok">',
+        baseCls: 'btn btn-xs'
+    });
+};
+export default { renderCalendar , populateGoogleDates, toggleCalendars}
