@@ -2,15 +2,33 @@
 import dom from '../utils/dom'
 import {log} from '../utils/logger'
 
+import Field from './Form/Field-class';
+
 import {dispatch, dispatchAsync} from '../index'
 
 
 /**
  * Example onchange event on the checkbox in jsx.
  */
-function alertWhenCheckboxChanges(){
+function alertWhenCheckboxChanges() {
   alert('(on)Change is Good! ...or so they say...')
 }
+
+const isEven = (value) => +value % 2 === 0;
+
+const NumberInput = new Field({
+  name: 'money-input',
+  type:         'number',
+  defaultValue: 10, // THIS MIGHT NOT WORK YET
+  props: {
+    step: 1,
+    max: 1000,
+    min: 0
+  },
+  errorMsg: 'Only Even Numbers Allowed!',
+  willDispatch: false,
+  validation: isEven
+});
 
 
 /**
@@ -26,27 +44,38 @@ const ExampleComponent = ({state: {balance}}) => {
   // uncomment line below, it's already set
   // log(`balance -> ${balance}`)
 
+  /**
+   * IT IS GOOD TO KNOW:
+   *     'BANK_SUBMIT_INVALID', 'WITHDRAW_INVALID' AND 'NOT_HANDLED_BUT_NEEDED'
+   *     are all unhandled dispatches. The reason they are needed is that they
+   *     updated the Field when it is invalid.
+   *        -- reason: in order to re-render field showing validation message
+   *                   this component needs to re-render, so something, anything,
+   *                   it doesn't matter really, has to be dispatched to show
+   *                   validation markup.
+   */
+
   return (
     <div>
       {/*  Sending Action Up Into Redux-ish (see data-store/reducers.js) */}
 
-      <form className="form">
+      <form className="form" onsubmit={()=>NumberInput.condDispatch('DEPOSIT', 'BANK_SUBMIT_INVALID', false)}>
         <legend>Deposit or Withdraw from the Bank.</legend>
         <h4 className="label"> balance: {balance}</h4>
 
         <div className="form-group">
           {/* Input to select amount to add or subtract */}
           <label htmlFor="money-input">Monopoly Moneys:
-            <input type="number" className="input-control" value="0" step="1" min="0" name="money-input" id="money-input"/>
           </label>
+          {NumberInput.jsx()}
         </div>
 
         <div className="form-group">
           {/* Buttons to dispatch the action */}
           <span className="btn btn-success fa fa-arrow-circle-o-up"
-                onclick={depositMoney('input[name=money-input]')}> &nbsp; DEPOSIT</span>
+                onclick={bankTransaction('DEPOSIT', NumberInput)}> &nbsp; DEPOSIT</span>
           <span className="btn btn-danger fa fa-arrow-circle-down"
-                onclick={withdrawMoney('input[name=money-input]')}> &nbsp; WITHDRAW</span>
+                onclick={() => NumberInput.condDispatch('WITHDRAW', 'WITHDRAW_INVALID')}> &nbsp; WITHDRAW</span>
         </div>
 
       </form>
@@ -56,28 +85,15 @@ const ExampleComponent = ({state: {balance}}) => {
 }
 
 
-/**
- * Call this with the CSS Selector for an input, it returns a function that has
- * that selector bound to it, grabs the value from the selector and dispatches action.
- */
-function depositMoney(inputSelector) {
+function bankTransaction(transType, inputField) {
   return () => {
-    const inputField = document.querySelector(inputSelector)
-    if (inputField && inputField instanceof HTMLElement) {
-      // Dispatch the action (handled in app/data-store/reducers/example-reducer.js)
-      dispatch({type: 'DEPOSIT', value: +(inputField.value)})
+    // Dispatch the action (handled in app/data-store/reducers/example-reducer.js)
+    if (inputField.isValid) {
+      dispatch({type: transType, value: +(inputField.value)})
     }
-  }
-}
-
-// Same as above. You could refactor these 2 functions to just be 1.
-// Use a 2nd arg for Action Name 'DEPOSIT' 'WITHDRAW'
-function withdrawMoney(inputSelector) {
-  return () => {
-    const inputField = document.querySelector(inputSelector)
-    if (inputField && inputField instanceof HTMLElement) {
-      // Dispatch the action (handled in app/data-store/reducers/example-reducer.js)
-      dispatch({type: 'WITHDRAW', value: +(inputField.value)})
+    else {
+      // HANDLE SOME ERROR IN VALIDATION?
+      dispatch({type: 'NOT_HANDLED_BUT_NEEDED', value: ''})
     }
   }
 }

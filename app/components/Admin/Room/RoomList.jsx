@@ -9,7 +9,8 @@ import Room from './room-class.js'
 export default ({state, dispatch}) => {
 
     function editRoom(key) {
-        var room = state.rooms.find(x => x.key === key);
+        //create new object rather than assign existing object.  This prevents the grid from updating while the item is being edited.
+        var room = Object.assign({}, state.rooms.find(x => x.key === key));
         Room.setCurrentRoom(room);
     }
 
