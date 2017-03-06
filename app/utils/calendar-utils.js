@@ -75,17 +75,18 @@ function isSource(newSource) {
 *
 * */
 function removeEventSource(source){
-    if((source.visible === false) && (source.added === true)){
+    if(!source.added){
         let calId = {googleCalendarId: source.calendarId};
         $('#calendar').fullCalendar('removeEventSource', calId);
-        source.added = false;
-    }
+        //source.added = false;
+        toggleAddedProperty(source.room -1);
+   }
 
 }
 
 // remove event source
 function addEventSource(source){
-    if(((source.visible === true) && (source.added === false))){
+    if(source.added){
         //console.log('true true');
         let calId = {
             googleCalendarId: source.calendarId,
@@ -93,14 +94,23 @@ function addEventSource(source){
             textColor: source.textColor
         };
         $('#calendar').fullCalendar('addEventSource', calId);
-        source.added = true;
+        //source.added = true; replaced with call to function to tie
+        // property change into the state.
+        toggleAddedProperty(source.room -1);
+
     }
 
 }
 
+// toggle added Property
+function toggleAddedProperty(id){
+    return (id) => {
+        dispatch({type: 'SOURCETOGGLED', value: id})
+    }
+}
+
 // toggleCalendars
 export function toggleCalendars(source,visible){
-
     if(!visible){
         removeEventSource(source);
     } else {

@@ -22,11 +22,26 @@ export default (state = {}, action) => {
             return state;
 
         case 'TOGGLEROOM':
+            const {value: {visible, room, added}} = action;
+            const {sources} = state;
+            const idx = room - 1;
+            const newRoom = Object.assign({}, sources[idx], {visible: !visible, added: !added});
+            const newSources = [].concat(sources.slice(0, idx), newRoom, sources.slice(idx+1));
 
-            Object.assign({}, state, state.sources[action.value.room - 1].visible = !action.value.visible );
-            toggleCalendars(action.value,action.value.visible);
-            return state;
+            const newState = Object.assign({}, state, {sources:newSources});
 
+            toggleCalendars(newState.sources[idx],newState.sources[idx].visible);
+            return newState;
+
+        case 'SOURCETOGGLED':
+            const mySources = state.sources;
+            const idX = action.value;
+            const isAdded = !mySources[idX].added;
+            const activeRoom = Object.assign({}, state,{added: isAdded});
+
+            const newSourceArr = [].concat(mySources.slice(0, idX - 1),activeRoom, mySources.slice(idX));
+            const newStateObj = Object.assign({}, state, {sources:newSources});
+            return newStateObj;
         default:
             // @desc Always have a default to return state object
             return state
