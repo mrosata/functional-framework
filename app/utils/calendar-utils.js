@@ -87,7 +87,6 @@ function removeEventSource(source){
 // remove event source
 function addEventSource(source){
     if(source.added){
-        //console.log('true true');
         let calId = {
             googleCalendarId: source.calendarId,
             color: source.color,
@@ -134,7 +133,7 @@ export const populateGoogleDates = function(sources){
 // Render Events On Navigation
 export const renderEventsOnNavigate = function(sources){
     sources.forEach((source) => {
-        if(source.added === true){
+        if(source.added === false && source.visible === true){
             let calId = {
                 googleCalendarId: source.calendarId,
                 color: source.color,

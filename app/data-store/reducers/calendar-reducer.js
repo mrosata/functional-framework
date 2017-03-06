@@ -18,6 +18,12 @@ export default (state = {}, action) => {
             if (state.router.route == 'index') {
                 setTimeout(renderCalendar,1,state.sources);
                 setTimeout(renderEventsOnNavigate,1,state.sources);
+            } else {
+                const updatedSources = state.sources.map((source) => {
+                    source.added = false;
+                    return source;
+                });
+                return Object.assign({}, state, {sources:updatedSources});
             }
             return state;
 
@@ -40,8 +46,10 @@ export default (state = {}, action) => {
             const activeRoom = Object.assign({}, state,{added: isAdded});
 
             const newSourceArr = [].concat(mySources.slice(0, idX - 1),activeRoom, mySources.slice(idX));
-            const newStateObj = Object.assign({}, state, {sources:newSources});
-            return newStateObj;
+            return Object.assign({}, state, {sources:newSourceArr});
+
+
+
         default:
             // @desc Always have a default to return state object
             return state
