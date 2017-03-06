@@ -13,10 +13,11 @@ import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
  * @return {VNode}
  */
 export default ({state: {sources,calendarEvents,route}}) => {
+  renderCal(sources);
   return (
       <section>
         <ToggleCalendar state={sources}></ToggleCalendar>
-        <div id="calendar" onload={renderCal(sources)} />
+        <div id="calendar" />
       </section>
   );
 }
@@ -24,5 +25,6 @@ export default ({state: {sources,calendarEvents,route}}) => {
 function renderCal(sources){
   setTimeout(renderCalendar,14,sources);
 }
+
 
 
