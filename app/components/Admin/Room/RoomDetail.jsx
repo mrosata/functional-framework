@@ -18,7 +18,8 @@ const RoomNumberInput = new Field({
     type: 'number',
     errorMsg: 'Room number must be greater than zero!',
     willDispatch: false,
-    validation: isPositive
+    validation: isPositive,
+    debug: true
 });
 
 const RoomNameInput = new Field({
@@ -26,7 +27,8 @@ const RoomNameInput = new Field({
     type: 'text',
     errorMsg: 'Please enter a value for Room!',
     willDispatch: false,
-    validation: isNonEmptyString
+    validation: isNonEmptyString,
+    debug: true
 });
 
 const RoomDescriptionInput = new Field({
@@ -53,7 +55,7 @@ const MaxInput = new Field({
 
 
 /**
- * Gets user input from forms and validates. If all controls are valid then 
+ * Gets user input from forms and validates. If all controls are valid then
  * the Room.save method is called to persist the changes.
  */
 function saveRoom() {
@@ -80,14 +82,14 @@ function loadRooms() {
  * Gets the values from the form and sets properties on tempRoom object
  */
 function getFormValues() {
-    const number = +document.getElementById('number').value;
+    //const number = +document.getElementById('number').value;
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;
     const active = document.getElementById('active').checked;
     const min = document.getElementById('min').value;
     const max = document.getElementById('max').value;
 
-    tempRoom.number = number;
+    tempRoom.number = RoomNumberInput.value;
     tempRoom.name = name;
     tempRoom.description = description;
     tempRoom.active = active;
@@ -105,6 +107,9 @@ function fieldsValid() {
         dispatch({ type: 'NOT_HANDLED_BUT_NEEDED', value: '' })
         return false;
     }
+    else {
+      dispatch({type: 'SOMETHING', value: ''})
+    }
 
     return true;
 }
@@ -113,7 +118,7 @@ function fieldsValid() {
 export default ({state}) => {
     tempRoom = state.currentRoom;
 
-    if (state.currentRoom == null) {
+    if (!state.currentRoom) {
         tempRoom = new Room();
     }
 

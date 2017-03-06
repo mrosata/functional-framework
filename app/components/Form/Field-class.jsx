@@ -65,7 +65,7 @@ class BaseField {
   }
 
   constructor({
-    name, id, type:inputType, defaultValue, className, errorClass, errorMsg, eventType, willDispatch, validation = () => true}) {
+    name, id, type:inputType, defaultValue, className, errorClass, errorMsg, eventType, willDispatch, debug, validation = () => true}) {
 
     const toLowerType = toLower(inputType);
 
@@ -80,6 +80,8 @@ class BaseField {
     this.type         = BaseField.TYPES.includes(toLowerType) ? inputType : Field.error('type', inputType);
     this.validation   = isCallable(validation) ? validation : Field.error('validation', validation);
     this.defaultValue = defaultValue || BaseField.DEFAULTS[toLowerType];
+
+    this.debug        = debug ? !!debug : false;
   }
 
   get value() {
@@ -117,6 +119,23 @@ class Field extends BaseField {
   }
 
   /**
+   * Debug info if field.debug == true
+   */
+  logFieldInfo() {
+    if (this.debug) {
+      const {type, name, value, isValid} = this;
+      console.log(`Field(${type}, ${name}) --> ${value} --> ${isValid ? 'VALID' : 'INVALID'}`);
+    }
+  }
+
+  logChangeInfo(prevValue, event) {
+    if (this.debug) {
+      const {type, name, value} = this;
+      console.log(`Field(${type}, ${name}) -> ${prevValue} << Changed >> ${value}`, event);
+    }
+  }
+
+  /**
    * Output a JSX Element to show input
    * @example
    * ```jsx
@@ -137,6 +156,10 @@ class Field extends BaseField {
     const onChangeEvent = this.onchange.bind(this);
     const wrapperClass = ['control-group', !this.isValid ? 'error' : ''].join(' ');
 
+    // This only logs if this.debug == true
+    this.logFieldInfo();
+
+
     return (
       <div className={wrapperClass}>
         <input id={this.id}
@@ -155,9 +178,11 @@ class Field extends BaseField {
    * onchange. Otherwise it should be handled from a component somehow
    * and using this.fromState(value) the component can change input value.
    */
-  onchange({currentTarget: {value = null}}) {
+  onchange({target: {value = null}}) {
+    const prevValue = this._value;
     this.value = value;
 
+    this.logChangeInfo(prevValue, ...arguments);
     if (this.willDispatch) {
       dispatch({type: toUpper(this.eventType), value: value})
     }
