@@ -1,4 +1,5 @@
 import {dispatch} from '../../index';
+import BaseField from './BaseField-class';
 import dom from '../../utils/dom'
 import R from 'ramda';
 
@@ -10,95 +11,7 @@ import R from 'ramda';
  * type    = gives type of value ie: type({id:10})  // "Object"
  * isEmpty = bool flag for object, string or array is empty
  */
-const {toLower, toUpper, isNil, is, type, isEmpty} = R;
-const isCallable = is(Function);
-
-
-/**
- * This holds default values, type of fields allowed and error
- * messages. The Field component will extend this which should
- * hopefully make the `Field` class look a bit cleaner with all
- * these default values out of the way. Also we have 1 place to
- * edit these "base" values.
- */
-class BaseField {
-
-  static get TYPES() {
-    return [
-      'number', 'text', 'checkbox', 'radio'
-    ];
-  }
-
-  static get DEFAULTS () {
-    return {
-      number:   0,
-      text:     '',
-      checkbox: '',
-      radio:    ''
-    };
-  }
-
-  static error(fieldType, value) {
-
-    switch (toLower(fieldType)) {
-      case 'name':
-        throw new Error(`Fields require a name, you passed ${type(value)}`);
-        break;
-      case 'type':
-        throw new Error(`Invalid field type ${type(value)}`);
-        break;
-      case 'validation':
-        throw new Error(`Field "validation" type must be function, you passed ${type(value)}`)
-        break;
-      default:
-        throw new Error(`Unknown Error in field; type: ${fieldType}, info: ${value}`);
-    }
-  }
-
-  /**
-   * Make sure inputs that are numbers get formatted as numbers.
-   * @param inputValue
-   * @returns {number}
-   */
-  format(inputValue) {
-    return toLower(this.type) === "number" ? +inputValue : inputValue;
-  }
-
-  constructor({
-    name, id, type:inputType, defaultValue, className, errorClass, errorMsg, eventType, willDispatch, debug, validation = () => true}) {
-
-    const toLowerType = toLower(inputType);
-
-    this.isValid      = true;
-    this.willDispatch = !!willDispatch;
-    this.className    = className || 'input-control';
-    this.errorClass   = errorClass || 'error';
-    this.errorMsg     = is(String, errorMsg) ? errorMsg : 'Invalid Input Value!'
-    this.eventType    = is(String, eventType) && !isEmpty(eventType) ? eventType : 'FIELD_ONCHANGE' ;
-    this.name         = name ? name : BaseField.error('name', name);
-    this.id           = id ? id : name;
-    this.type         = BaseField.TYPES.includes(toLowerType) ? inputType : Field.error('type', inputType);
-    this.validation   = isCallable(validation) ? validation : Field.error('validation', validation);
-    this.defaultValue = defaultValue || BaseField.DEFAULTS[toLowerType];
-
-    this.debug        = debug ? !!debug : false;
-  }
-
-  get value() {
-    return isNil(this._value) ? this.defaultValue : this.format(this._value);
-  }
-
-  set value(value) {
-    this._value = value;
-    this.validate(value);
-  }
-
-  validate(value) {
-    console.log('VALIDATING');
-    this.isValid = this.validation(value);
-  }
-
-}
+const {toUpper, toLower, isNil, is, type} = R;
 
 
 /**
@@ -121,10 +34,10 @@ class Field extends BaseField {
   /**
    * Debug info if field.debug == true
    */
-  logFieldInfo() {
+  logFieldInfo(label) {
     if (this.debug) {
-      const {type, name, value, isValid} = this;
-      console.log(`Field(${type}, ${name}) --> ${value} --> ${isValid ? 'VALID' : 'INVALID'}`);
+      const {type, name, _value, isValid} = this;
+      console.log(`${label ? `[${label}] ` : ''}Field(${type}, ${name}) --> ${_value} --> ${isValid ? 'VALID' : 'INVALID'}`);
     }
   }
 
@@ -154,11 +67,10 @@ class Field extends BaseField {
 
     const currentClass  = [this.className, !this.isValid ? this.errorClass : ''].join(' ');
     const onChangeEvent = this.onchange.bind(this);
-    const wrapperClass = ['control-group', !this.isValid ? 'error' : ''].join(' ');
+    const wrapperClass  = ['control-group', !this.isValid ? 'error' : ''].join(' ');
 
     // This only logs if this.debug == true
-    this.logFieldInfo();
-
+    this.logFieldInfo('rendering...');
 
     return (
       <div className={wrapperClass}>
@@ -178,13 +90,15 @@ class Field extends BaseField {
    * onchange. Otherwise it should be handled from a component somehow
    * and using this.fromState(value) the component can change input value.
    */
-  onchange({target: {value = null}}) {
-    const prevValue = this._value;
-    this.value = value;
+  onchange({target: {value = null, checked=false}}) {
+    // Previous value for debug reasons only
+    const prevValue  = this._value;
+    this.value = this.format(toLower(this.type) === "checkbox" ? checked : value);
 
     this.logChangeInfo(prevValue, ...arguments);
+
     if (this.willDispatch) {
-      dispatch({type: toUpper(this.eventType), value: value})
+      dispatch({type: toUpper(this.eventType), value: this._value});
     }
   }
 

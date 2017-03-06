@@ -3,21 +3,29 @@ import R from 'ramda';
 import dom from '../../../utils/dom';
 import Room from './room-class.js'
 import Field from '../../Form/Field-class';
-import { dispatch, dispatchAsync } from '../../../index'
 
 var tempRoom = new Room();
 
-const {is, isEmpty} = R;
+const {is, isEmpty, propEq, prop, all, filter, map, join, compose} = R;
 
+// Utils
+const allValid = all(prop('isValid'))
+const takeInvalidFields = filter(propEq('isValid', false));
+const getErrorMessages = map(prop('errorMsg'));
+const makeList = join('\r\n');
+const errorMessageList = compose(makeList, getErrorMessages, takeInvalidFields);
+
+// Validation
 const isNonEmptyString = (value) => is(String, value) && !isEmpty(value)
 const isNotNegative = (value) => +value >= 0;
 const isPositive = (value) => +value > 0;
 
+// Fields
 const RoomNumberInput = new Field({
     name: 'number',
     type: 'number',
     errorMsg: 'Room number must be greater than zero!',
-    willDispatch: false,
+    willDispatch: true,
     validation: isPositive,
     debug: true
 });
@@ -26,7 +34,7 @@ const RoomNameInput = new Field({
     name: 'name',
     type: 'text',
     errorMsg: 'Please enter a value for Room!',
-    willDispatch: false,
+    willDispatch: true,
     validation: isNonEmptyString,
     debug: true
 });
@@ -34,14 +42,14 @@ const RoomNameInput = new Field({
 const RoomDescriptionInput = new Field({
     name: 'description',
     type: 'text',
-    willDispatch: false
+    willDispatch: true
 });
 
 const MinInput = new Field({
     name: 'min',
     type: 'number',
     errorMsg: 'Minimum Capacity cannot be negative!',
-    willDispatch: false,
+    willDispatch: true,
     validation: isNotNegative
 });
 
@@ -49,20 +57,34 @@ const MaxInput = new Field({
     name: 'max',
     type: 'number',
     errorMsg: 'Maximum Capacity cannot be negative!',
-    willDispatch: false,
+    willDispatch: true,
     validation: isNotNegative
 });
+
+const ActiveInput = new Field({
+  name: 'active',
+  type: 'checkbox'
+})
+
+
+// All The Form Fields
+const formFieldsList = [
+  RoomNumberInput, RoomNameInput, RoomDescriptionInput, MinInput, MaxInput, ActiveInput
+];
+
 
 
 /**
  * Gets user input from forms and validates. If all controls are valid then
  * the Room.save method is called to persist the changes.
  */
-function saveRoom() {
+function saveRoom(formFields) {
     getFormValues();
 
-    if (fieldsValid())
+    if (allValid(formFields))
         Room.save(tempRoom);
+    else
+      alert(errorMessageList(formFieldsList));
 }
 
 function deleteRoom() {
@@ -82,37 +104,19 @@ function loadRooms() {
  * Gets the values from the form and sets properties on tempRoom object
  */
 function getFormValues() {
-    //const number = +document.getElementById('number').value;
-    const name = document.getElementById('name').value;
-    const description = document.getElementById('description').value;
+
     const active = document.getElementById('active').checked;
-    const min = document.getElementById('min').value;
-    const max = document.getElementById('max').value;
+    tempRoom.active = ActiveInput.value;
 
     tempRoom.number = RoomNumberInput.value;
-    tempRoom.name = name;
-    tempRoom.description = description;
-    tempRoom.active = active;
-    tempRoom.capacity.min = +min;
-    tempRoom.capacity.max = +max;
+    tempRoom.name = RoomNameInput.value;
+    tempRoom.description = RoomDescriptionInput.value;
+    tempRoom.capacity.min = MinInput.value;
+    tempRoom.capacity.max = MaxInput.value;
 
     Room.setCurrentRoom(tempRoom);
 }
 
-/**
- * Make sure all fields are valid before continuing with save.
- */
-function fieldsValid() {
-    if (!RoomNumberInput.isValid || !RoomNameInput.isValid || !MinInput.isValid || !MaxInput.isValid) {
-        dispatch({ type: 'NOT_HANDLED_BUT_NEEDED', value: '' })
-        return false;
-    }
-    else {
-      dispatch({type: 'SOMETHING', value: ''})
-    }
-
-    return true;
-}
 
 
 export default ({state}) => {
@@ -121,13 +125,6 @@ export default ({state}) => {
     if (!state.currentRoom) {
         tempRoom = new Room();
     }
-
-    //setting value property will call each controls validate function and set its isValid property.
-    RoomNumberInput.value = tempRoom.number;
-    RoomNameInput.value = tempRoom.name;
-    RoomDescriptionInput.value = tempRoom.description;
-    MinInput.value = tempRoom.capacity.min;
-    MaxInput.value = tempRoom.capacity.max;
 
 
     //change button visibility based on whether or not user is logged in
@@ -173,13 +170,14 @@ export default ({state}) => {
                     <div className="form-group">
                         <div className="col-sm-offset-2 col-sm-10">
                             <div className="checkbox">
-                                <label><input type="checkbox" checked={tempRoom.active} id="active" name="active"></input> Active</label>
+                                <label>
+                                  {ActiveInput.jsx()} Active</label>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div>
-                    <span className={saveClass} onclick={() => saveRoom()}>Save</span>
+                    <span className={saveClass} onclick={() => saveRoom(formFieldsList)}>Save</span>
                     <span className={deleteClass} onclick={() => deleteRoom()}>Delete</span>
                     <span className="btn btn-info" onclick={() => clearRoom()}>Clear</span>
                     <span className="btn btn-success" onclick={() => loadRooms()}>Load</span>
