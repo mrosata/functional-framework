@@ -1,0 +1,2 @@
+import bookingApp from './index'
+
