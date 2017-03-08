@@ -17,7 +17,7 @@ export default ({state}) => {
 	return (
 		<div>
 			<p className="glyph-container">
-				<a visited="true"  ariaExpanded="false" ariaControls="collapseExample" onclick={() => {
+				<small className="settings" ariaExpanded="false" ariaControls="collapseExample" onclick={() => {
 					if(state.calendarDrawer === 'collapse'){
 						return (
 						dispatch({type: 'TOGGLEDRAWER', value: ''}),
@@ -37,7 +37,7 @@ export default ({state}) => {
 
 				}}>
 
-					<span className="glyphicon glyphicon-cog"></span> Settings</a>
+					<span className="glyphicon glyphicon-cog"></span> Settings</small>
 			</p>
 			<CalendarInnerDrawer state={state} />
 
