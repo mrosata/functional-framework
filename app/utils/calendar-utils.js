@@ -78,10 +78,7 @@ function removeEventSource(source){
     if(!source.added){
         let calId = {googleCalendarId: source.calendarId};
         $('#calendar').fullCalendar('removeEventSource', calId);
-        //source.added = false;
-        toggleAddedProperty(source.room -1);
    }
-
 }
 
 // remove event source
@@ -93,18 +90,6 @@ function addEventSource(source){
             textColor: source.textColor
         };
         $('#calendar').fullCalendar('addEventSource', calId);
-        //source.added = true; replaced with call to function to tie
-        // property change into the state.
-        toggleAddedProperty(source.room -1);
-
-    }
-
-}
-
-// toggle added Property
-function toggleAddedProperty(id){
-    return (id) => {
-        dispatch({type: 'SOURCETOGGLED', value: id})
     }
 }
 
@@ -132,18 +117,6 @@ export const populateGoogleDates = function(sources){
 };
 // Render Events On Navigation
 export const renderEventsOnNavigate = function(sources){
-    sources.forEach((source) => {
-        if(source.added === false && source.visible === true){
-            let calId = {
-                googleCalendarId: source.calendarId,
-                color: source.color,
-                textColor: source.textColor
-            };
-            $('#calendar').fullCalendar('addEventSource', calId);
-
-        }
-
-    });
     displayCalendarFilter();
 };
 

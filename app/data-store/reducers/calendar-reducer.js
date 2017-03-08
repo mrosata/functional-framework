@@ -35,7 +35,7 @@ export default (state = {}, action) => {
             const newSources = [].concat(sources.slice(0, idx), newRoom, sources.slice(idx+1));
 
             const newState = Object.assign({}, state, {sources:newSources});
-
+            console.log('newroom',newRoom);
             toggleCalendars(newState.sources[idx],newState.sources[idx].visible);
             return newState;
 
@@ -44,11 +44,17 @@ export default (state = {}, action) => {
             const idX = action.value;
             const isAdded = !mySources[idX].added;
             const activeRoom = Object.assign({}, state,{added: isAdded});
-
+            console.log('activeRoom',activeRoom);
             const newSourceArr = [].concat(mySources.slice(0, idX - 1),activeRoom, mySources.slice(idX));
             return Object.assign({}, state, {sources:newSourceArr});
 
+        case 'TOGGLEROOMS':
+            //jQuery('#toggle-all').prop('checked','false');
+            return Object.assign({},state,{showAllToggles: action.value});
 
+        case 'TOGGLEDRAWER':
+
+            return Object.assign({}, state, {calendarDrawer: action.value});
 
         default:
             // @desc Always have a default to return state object

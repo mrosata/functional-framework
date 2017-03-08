@@ -95,6 +95,36 @@ Styles for Check Boxes
 
 .toggle-form-container{
   margin-bottom: 10px;
+}
+.hidden {
+  visibility: hidden;
+}
 
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}
+.glyph-container {
+  position: relative;
+}
+.glyph {
+  position: absolute;
+  left: 75px;
+  top: 2px;
 
 }
+
+#toggle-all {
+  margin-top: 7px;
+}
+//#toggle-all:checked {
+//  visibility: hidden;
+//}
+//
+//#toggle-all:checked ~ span {
+//  visibility: hidden;
+//}
+

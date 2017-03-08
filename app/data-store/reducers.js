@@ -56,7 +56,9 @@ export const defaultState = {
       textColor: 'black',
       added: false
     }
-  ]
+  ],
+  showAllToggles: 'hide',
+  calendarDrawer: 'collapse'
 }
 
 /**
