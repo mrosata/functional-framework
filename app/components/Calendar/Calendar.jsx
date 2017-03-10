@@ -1,11 +1,16 @@
 "use strict"
 import dom from '../../utils/dom'
+import gcal from '../../utils/gcal'
 import {log} from '../../utils/logger'
 import ToggleCalendar from 'ToggleCalendars'
 
 import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
 
-
+gcal.getEvents()
+  .then(function (events) {
+    // UNCOMMENT THE LINE BELOW TO SEE HUNDREDS OF EVENTS!!
+    //console.log('got events!', events);
+  })
 
 /**
  * Calendar Component
