@@ -5,13 +5,16 @@ import {log} from '../../utils/logger'
 import CalendarDrawer from 'CalendarDrawer'
 
 import {renderCalendar,populateGoogleDates} from '../../utils/calendar-utils'
+<<<<<<< HEAD
+=======
 
 gcal.getEvents()
   .then(function (events) {
-    console.log('got events!', events);
+    // UNCOMMENT THE LINE BELOW TO SEE HUNDREDS OF EVENTS!!
+    //console.log('got events!', events);
   })
 
-
+>>>>>>> dev
 /**
  * Calendar Component
  * @param  {array} calendarEvents - The events for calendar to display
