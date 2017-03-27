@@ -7,5 +7,10 @@ build/bower_components/
 build/*
 !build/index.html
 !build/favicon.ico
+!build/widget.html
+!build/style.css
+!build/auth.js
 
 project-config.js
+yarn.lock
+yarn-error.log

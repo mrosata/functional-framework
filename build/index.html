@@ -1,35 +1,82 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Functional JavaScript App</title>
-  <meta name="description" content="A small JavaScript App built using Functional Programming
-  and influenced heavily by the React framework and Redux.">
-  <script>
-    (function() {
-      if ('registerElement' in document
-        && 'import' in document.createElement('link')
-        && 'content' in document.createElement('template')) {
-        // platform is good!
-      } else {
-        // polyfill the platform!
-        const e = document.createElement('script');
-        e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
-        document.body.appendChild(e);
+  <title>Calendar Scheduling App</title>
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+  <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+  <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+
+
+  <script id="googlePromiseScript">
+    window.googleEvents = new Promise(function(resolve, reject) {
+      const s = document.createElement('script');
+      s.src = "https://apis.google.com/js/api.js"
+      s.onreadystatechange="if (this.readyState === 'complete') this.onload()"
+      s.onload = function handleClientLoad(args) {
+        return resolve(args);
       }
-    })();
+      document.head.insertBefore(s, document.querySelector('head title'));
+    });
   </script>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <script src="bower_components/jquery/dist/jquery.js" defer></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js" defer></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    const CLIENT_ID  = '895512080708-nsu25s3qth29utoqtkb51hps5aoq0c75.apps.googleusercontent.com'
+    const API_KEY    = 'AIzaSyBF391zC2S8su_r_-zFARAoWo1ekRsgcZE'
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+    var calId = 't0gnqindnl5hfu7noj4iu3dvek@group.calendar.google.com'
+    window.gapiPromise = new Promise(function(resolve, reject) {
+      function start() {
+        // 2. Initialize the JavaScript client library.
+        gapi.client.init({
+          'apiKey': 'AIzaSyBF391zC2S8su_r_-zFARAoWo1ekRsgcZE',
+          'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+          // clientId and scope are optional if auth is not required.
+          'clientId': '895512080708-nsu25s3qth29utoqtkb51hps5aoq0c75',
+          'scope': SCOPES
+        })
+          .then(resolve, reject);
+
+      };
+
+      // 1. Load the JavaScript client library.
+      gapi.load('client', start);
+    })
+
+  </script>
+
+  <script src="bower_components/bootstrap-checkbox/dist/js/bootstrap-checkbox.min.js"></script>
+
+  <script>
+    window._CONFIG = window._CONFIG || {}
+    /** FIREBASE PUBLIC KEYS **/
+    window._CONFIG.FIREBASE = {
+      apiKey: "AIzaSyBF391zC2S8su_r_-zFARAoWo1ekRsgcZE",
+      authDomain: "democracy-center-events.firebaseapp.com",
+      databaseURL: "https://democracy-center-events.firebaseio.com",
+      storageBucket: "democracy-center-events.appspot.com"
+    }
+  </script>
+
 </head>
 <body>
+
 <section id="app"></section>
-<script src="bundle.js" async></script>
+
+<script src="bundle.js"></script>
+
 </body>
 </html>

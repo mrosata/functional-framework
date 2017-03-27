@@ -1,14 +1,131 @@
 $background: #fafdfa;
 $fontColor: #383838;
 
-
 body {
   background: $background;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: $fontColor;
   padding-top: 70px;
 
+  .navbar {
+    &.navbar-inverse {
+      .navbar-nav > li > a.active {
+        color: #f5f5f5;
+        font-weight: bold;
+      }
+    }
+    .navbar-nav > li > a.active {
+      font-weight: bolder;
+    }
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
   footer {
     margin: 50px 0;
   }
+  h4.label {
+    color: #313131;
+    font-size: 1.6rem;
+  }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#container {
+  text-align: center;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.hidden {
+  display: none;
+}
+
+#user-info {
+  border: 1px solid #CCC;
+  clear: both;
+  margin: 0 auto 20px;
+  max-width: 400px;
+  padding: 10px;
+  text-align: left;
+}
+
+#photo-container {
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  float: left;
+  height: 80px;
+  margin-right: 10px;
+  width: 80px;
+}
+
+#photo {
+  height: 80px;
+  margin: 0;
+  width: 80px;
+}
+
+@media (max-width: 300px) {
+  #photo-container,
+  #photo {
+    height: 40px;
+    width: 40px;
+  }
+}
+
+/*
+Styles for Check Boxes
+*/
+
+.checkboxText {
+  margin-right:20px;
+  margin-left:4px;
+  font-size: 1.3rem;
+}
+
+.toggle-form-container{
+  margin-bottom: 10px;
+}
+.hidden {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}
+.glyph-container {
+  position: relative;
+}
+.glyph {
+  position: absolute;
+  left: 75px;
+  top: 2px;
+
+}
+
+#toggle-all {
+  margin-top: 7px;
+}
+
+//#toggle-all:checked {
+//  visibility: hidden;
+//}
+//
+//#toggle-all:checked ~ span {
+//  visibility: hidden;
+//}
+
